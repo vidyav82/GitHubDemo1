@@ -3,19 +3,19 @@ package Selenium;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
-public class TestSalesForceLoginChrome {
+public class TestSalesForceLoginIE {
 
-	public static WebDriver driver;
+public static WebDriver driver;
 	
 	public static void main(String[] args) throws InterruptedException {
 		// TODO Auto-generated method stub
 		
-		WebDriverManager.chromedriver().setup();
-		driver = new ChromeDriver();
+		WebDriverManager.iedriver().setup();
+		driver = new InternetExplorerDriver();
 		
 		driver.get("https://login.salesforce.com/");
 		Thread.sleep(4000);
@@ -37,6 +37,8 @@ public class TestSalesForceLoginChrome {
 		
 		Thread.sleep(2000);
 		driver.quit();
-	}
+		
+		}
+
 
 }
