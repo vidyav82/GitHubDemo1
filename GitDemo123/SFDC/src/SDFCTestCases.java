@@ -2,6 +2,8 @@ import java.awt.Robot;
 import java.awt.AWTException;
 
 import java.awt.event.KeyEvent;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -22,6 +24,7 @@ import com.relevantcodes.extentreports.LogStatus;
 import org.openqa.selenium.support.*;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import okhttp3.internal.http2.Header;
 
 public class SDFCTestCases<SelectElement> {
 	
@@ -329,26 +332,26 @@ public class SDFCTestCases<SelectElement> {
 //		WebElement saveall = driver.findElement(By.xpath("//*[@id=\"TabPanel\"]/div/div[2]/form/div/input[1]"));
 //		saveall.click();
 //		
-//		WebElement postlnk = driver.findElement(By.xpath("//*[@id=\"publisherAttachTextPost\"]/span[1]"));
-//		postlnk.click();
-//		
-//		WebElement htmlbody = driver.findElement(By.xpath("//iframe[@class='cke_wysiwyg_frame cke_reset']"));
-//		
-//				
-//		driver.switchTo().frame(1);
-//		htmlbody.click();
-//		
-//		htmlbody.sendKeys("Testing is in progress.");
+//		WebElement postlink = driver.findElement(By.xpath("//a[@id='publisherAttachTextPost']"));
+//		postlink.click();
 //	
-//		WebElement share = driver.findElement(By.xpath("//*[@id=\"publishersharebutton\"]"));
-//		share.click();
-//		
+//		WebElement htmlbody = driver.findElement(By.xpath("//iframe[contains(@class,'cke_wysiwyg_frame cke_reset')]"));
+//		driver.switchTo().frame(htmlbody);
+//		WebElement textspace = driver.findElement(By.xpath("/html/body"));
+//		textspace.click();
+//		textspace.sendKeys("Testing is in progress.");
+//		Thread.sleep(2000);
+//		driver.switchTo().defaultContent();
+//		WebElement share = driver.findElement(By.xpath("//input[@id='publishersharebutton']"));
+//		share.click();	
+	
+	
 //		Thread.sleep(2000);
 //		WebElement txt = driver.findElement(By.xpath("/html[1]/body[1]/p[1]"));
 //		String txtdisp = txt.getText();
 //		if(txtdisp.contains("Testing is in progress."))
 //			logger.log(LogStatus.PASS,"The entered text is displayed.");
-//		else
+//				else
 //			logger.log(LogStatus.FAIL,"The entered text is not displayed.");
 //		
 //		
@@ -1456,382 +1459,1356 @@ public class SDFCTestCases<SelectElement> {
 //			driver.quit();
 //	}
 	
+//	@Test
+//	public void S_TC20_leadsTab() throws InterruptedException, AWTException {
+//	
+//		ExtentTest logger;
+//		ExtentReports report;
+//		
+//		WebDriver driver;
+//		WebDriverManager.firefoxdriver().setup();
+//		
+//		driver = new FirefoxDriver();
+//		
+//		String fileName = new SimpleDateFormat("'SFDCReport_'YYYYMMddHHmm'.html'").format(new Date());
+//		String path = "C:\\Users\\vasud\\Desktop\\Selenium\\" + fileName;
+//		report = new ExtentReports(path);
+//		logger = report.startTest("S_TC20_leadsTab");
+//		
+//		driver.get("https://login.salesforce.com/");
+//		Thread.sleep(2000);
+//		WebElement uid = driver.findElement(By.id("username"));
+//		uid.sendKeys("test@tekarch.com");
+//		
+//		WebElement pwd = driver.findElement(By.id("password"));
+//		pwd.sendKeys("B@ngalore123");
+//		
+//		WebElement LoginButn = driver.findElement(By.id("Login"));
+//		LoginButn.click();
+//		Thread.sleep(10000);
+//		
+//		WebElement showAll = driver.findElement(By.xpath("//*[@id=\"AllTab_Tab\"]"));
+//		showAll.click();
+//		
+//		WebElement leads = driver.findElement(By.linkText("Leads"));
+//		leads.click();
+//		
+//		Robot robot = new Robot();
+//		robot.keyPress(KeyEvent.VK_ESCAPE);
+//		Thread.sleep(3000);
+//		
+//		String leadstitle = driver.getTitle();
+//		String actualtitle = "Leads: Home ~ Salesforce - Developer Edition";
+//		
+//		if(leadstitle.equals(actualtitle))
+//			logger.log(LogStatus.PASS, "The Leads page is displayed properly.");
+//				else
+//			logger.log(LogStatus.FAIL, "The Leads page is not displayed properly.");
+//		
+//			
+//			report.flush();
+//			driver.quit();
+//	}
+	
+//	@Test
+//	public void T_TC21leadsSelectView() throws InterruptedException, AWTException {
+//	
+//		ExtentTest logger;
+//		ExtentReports report;
+//		
+//		WebDriver driver;
+//		WebDriverManager.firefoxdriver().setup();
+//		
+//		driver = new FirefoxDriver();
+//		
+//		String fileName = new SimpleDateFormat("'SFDCReport_'YYYYMMddHHmm'.html'").format(new Date());
+//		String path = "C:\\Users\\vasud\\Desktop\\Selenium\\" + fileName;
+//		report = new ExtentReports(path);
+//		logger = report.startTest("T_TC21leadsSelectView");
+//		
+//		driver.get("https://login.salesforce.com/");
+//		Thread.sleep(2000);
+//		WebElement uid = driver.findElement(By.id("username"));
+//		uid.sendKeys("test@tekarch.com");
+//		
+//		WebElement pwd = driver.findElement(By.id("password"));
+//		pwd.sendKeys("B@ngalore123");
+//		
+//		WebElement LoginButn = driver.findElement(By.id("Login"));
+//		LoginButn.click();
+//		Thread.sleep(10000);
+//		
+//		WebElement showAll = driver.findElement(By.xpath("//*[@id=\"AllTab_Tab\"]"));
+//		showAll.click();
+//		
+//		
+//		WebElement leads = driver.findElement(By.linkText("Leads"));
+//		leads.click();
+//		
+//		Robot robot = new Robot();
+//		robot.keyPress(KeyEvent.VK_ESCAPE);
+//		Thread.sleep(3000);
+//		
+//		String leadstitle = driver.getTitle();
+//		String actualtitle = "Leads: Home ~ Salesforce - Developer Edition";
+//		
+//		if(leadstitle.equals(actualtitle))
+//			logger.log(LogStatus.PASS, "The Leads page is displayed properly.");
+//				else
+//			logger.log(LogStatus.FAIL, "The Leads page is not displayed properly.");
+//		
+//		WebElement leadlist = driver.findElement(By.xpath("//select[@id='fcf']"));
+//		Select leadlistitem = new Select(leadlist);
+//		List<WebElement> alloptions = leadlistitem.getOptions();
+//		
+//		
+//		String [] listsitems = {"All Open Leads","My Unread Leads","Recently Viewed Leads",
+//				"Today's Leads"};
+//		
+//			for(int i=0;i<4;i++)
+//			{
+//			listsitems[i] = alloptions.get(i).getText();
+//			}
+//			
+//			
+//			for(int i=0;i<4;i++)
+//			{
+//				if(listsitems[i].equals(alloptions.get(i).getText()))
+//					logger.log(LogStatus.PASS, "The Opportunities list item"+listsitems[i]+" is displayed properly.");
+//				else
+//					logger.log(LogStatus.FAIL, "The Opportunities list item"+listsitems[i]+" is not displayed properly.");
+//			}	
+//			report.flush();
+//			driver.quit();
+//	}
+	
+//	@Test
+//	public void U_TC22defaultView() throws InterruptedException, AWTException {
+//	
+//		ExtentTest logger;
+//		ExtentReports report;
+//		
+//		WebDriver driver;
+//		WebDriverManager.firefoxdriver().setup();
+//		
+//		driver = new FirefoxDriver();
+//		
+//		String fileName = new SimpleDateFormat("'SFDCReport_'YYYYMMddHHmm'.html'").format(new Date());
+//		String path = "C:\\Users\\vasud\\Desktop\\Selenium\\" + fileName;
+//		report = new ExtentReports(path);
+//		logger = report.startTest("U_TC22defaultView");
+//		
+//		driver.get("https://login.salesforce.com/");
+//		Thread.sleep(2000);
+//		WebElement uid = driver.findElement(By.id("username"));
+//		uid.sendKeys("test@tekarch.com");
+//		
+//		WebElement pwd = driver.findElement(By.id("password"));
+//		pwd.sendKeys("B@ngalore123");
+//		
+//		WebElement LoginButn = driver.findElement(By.id("Login"));
+//		LoginButn.click();
+//		Thread.sleep(10000);
+//		
+//		WebElement showAll = driver.findElement(By.xpath("//*[@id=\"AllTab_Tab\"]"));
+//		showAll.click();
+//		
+//		WebElement leads = driver.findElement(By.linkText("Leads"));
+//		leads.click();
+//		
+//		Robot robot = new Robot();
+//		robot.keyPress(KeyEvent.VK_ESCAPE);
+//		Thread.sleep(3000);
+//		
+//		String leadstitle = driver.getTitle();
+//		String actualtitle = "Leads: Home ~ Salesforce - Developer Edition";
+//		
+//		if(leadstitle.equals(actualtitle))
+//			logger.log(LogStatus.PASS, "The Leads page is displayed properly.");
+//				else
+//			logger.log(LogStatus.FAIL, "The Leads page is not displayed properly.");
+//		
+//		WebElement leadlist = driver.findElement(By.xpath("//select[@id='fcf']"));
+//		leadlist.click();
+//		Select leadlistitem = new Select(leadlist);
+//		leadlistitem.selectByVisibleText("My Unread Leads");
+//		
+//		WebElement logoutpage = driver.findElement(By.xpath("//span[@id='userNavLabel']"));
+//		logoutpage.click();
+//		Thread.sleep(3000);
+//		WebElement logout = driver.findElement(By.linkText("Logout"));
+//		logout.click();
+//		Thread.sleep(3000);
+//		WebElement login = driver.findElement(By.id("username"));
+//		login.sendKeys("test@tekarch.com");
+//		
+//		WebElement pwd1 = driver.findElement(By.id("password"));
+//		pwd1.sendKeys("B@ngalore123");
+//		
+//		WebElement lgnbtn = driver.findElement(By.xpath("//input[@id='Login']"));
+//		lgnbtn.click();
+//		
+//		Thread.sleep(10000);
+//		
+//		WebElement showAll1 = driver.findElement(By.xpath("//*[@id=\"AllTab_Tab\"]"));
+//		showAll1.click();
+//		
+//		WebElement leads1 = driver.findElement(By.linkText("Leads"));
+//		leads1.click();
+//		
+//		Robot robot1 = new Robot();
+//		robot1.keyPress(KeyEvent.VK_ESCAPE);
+//		Thread.sleep(3000);
+//		
+//		WebElement gobtn = driver.findElement(By.xpath("//span[@class='fBody']//input[@name='go']"));
+//		gobtn.click();
+//		
+//		Thread.sleep(6000);
+//		WebElement leadlist1 = driver.findElement(By.xpath("//select[@id='00B6g00000B5PJJ_listSelect']"));
+//		Select leadlistitem1 = new Select(leadlist1);
+//		String selitem = leadlistitem1.getFirstSelectedOption().getText();
+//		
+//		if(selitem.equals("My Unread Leads"))
+//			logger.log(LogStatus.PASS, "The Leads list has previous selected value.");
+//		else
+//			logger.log(LogStatus.FAIL, "The Leads list does not have previous selected value.");
+//
+//		
+//			report.flush();
+//			driver.quit();
+//	}
+//	
+	
+//	@Test
+//	public void V_TC23TodaysLEads() throws InterruptedException, AWTException {
+//	
+//		ExtentTest logger;
+//		ExtentReports report;
+//		
+//		WebDriver driver;
+//		WebDriverManager.firefoxdriver().setup();
+//		
+//		driver = new FirefoxDriver();
+//		
+//		String fileName = new SimpleDateFormat("'SFDCReport_'YYYYMMddHHmm'.html'").format(new Date());
+//		String path = "C:\\Users\\vasud\\Desktop\\Selenium\\" + fileName;
+//		report = new ExtentReports(path);
+//		logger = report.startTest("V_TC23TodaysLEads");
+//		
+//		driver.get("https://login.salesforce.com/");
+//		Thread.sleep(2000);
+//		WebElement uid = driver.findElement(By.id("username"));
+//		uid.sendKeys("test@tekarch.com");
+//		
+//		WebElement pwd = driver.findElement(By.id("password"));
+//		pwd.sendKeys("B@ngalore123");
+//		
+//		WebElement LoginButn = driver.findElement(By.id("Login"));
+//		LoginButn.click();
+//		Thread.sleep(10000);
+//		
+//		WebElement showAll = driver.findElement(By.xpath("//*[@id=\"AllTab_Tab\"]"));
+//		showAll.click();
+//		
+//		WebElement leads = driver.findElement(By.linkText("Leads"));
+//		leads.click();
+//		
+//		Robot robot = new Robot();
+//		robot.keyPress(KeyEvent.VK_ESCAPE);
+//		Thread.sleep(3000);
+//		
+//		String leadstitle = driver.getTitle();
+//		String actualtitle = "Leads: Home ~ Salesforce - Developer Edition";
+//		
+//		if(leadstitle.equals(actualtitle))
+//			logger.log(LogStatus.PASS, "The Leads page is displayed properly.");
+//				else
+//			logger.log(LogStatus.FAIL, "The Leads page is not displayed properly.");
+//		
+//		WebElement leadlist = driver.findElement(By.xpath("//select[@id='fcf']"));
+//		Select leadlistitem = new Select(leadlist);
+//		leadlistitem.selectByVisibleText("Today's Leads");
+//	
+//				
+//		WebElement gobtn = driver.findElement(By.xpath("//span[@class='fBody']//input[@name='go']"));
+//		gobtn.click();
+//		
+//		Thread.sleep(6000);
+//		WebElement leadlist1 = driver.findElement(By.xpath("/html[1]/body[1]/div[1]/div[2]/table[1]/tbody[1]/tr[1]/td[2]/div[1]/div[1]/form[1]/div[1]/div[1]/select[1]"));
+//		Select leadlistitem1 = new Select(leadlist1);
+//		String selitem = leadlistitem1.getFirstSelectedOption().getText();
+//		
+//		if(selitem.equals("Today's Leads"))
+//			logger.log(LogStatus.PASS, "The Leads page shows Todays leads page.");
+//		else
+//			logger.log(LogStatus.FAIL, "The Leads page does not shows Todays leads page.");
+//
+//		
+//			report.flush();
+//			driver.quit();
+//	}
+//	
+//	@Test
+//	public void W_TC24NewLeads() throws InterruptedException, AWTException {
+//	
+//		ExtentTest logger;
+//		ExtentReports report;
+//		
+//		WebDriver driver;
+//		WebDriverManager.firefoxdriver().setup();
+//		
+//		driver = new FirefoxDriver();
+//		
+//		String fileName = new SimpleDateFormat("'SFDCReport_'YYYYMMddHHmm'.html'").format(new Date());
+//		String path = "C:\\Users\\vasud\\Desktop\\Selenium\\" + fileName;
+//		report = new ExtentReports(path);
+//		logger = report.startTest("W_TC24NewLeads");
+//		
+//		driver.get("https://login.salesforce.com/");
+//		Thread.sleep(2000);
+//		WebElement uid = driver.findElement(By.id("username"));
+//		uid.sendKeys("test@tekarch.com");
+//		
+//		WebElement pwd = driver.findElement(By.id("password"));
+//		pwd.sendKeys("B@ngalore123");
+//		
+//		WebElement LoginButn = driver.findElement(By.id("Login"));
+//		LoginButn.click();
+//		Thread.sleep(10000);
+//		
+//		WebElement showAll = driver.findElement(By.xpath("//*[@id=\"AllTab_Tab\"]"));
+//		showAll.click();
+//		
+//		WebElement leads = driver.findElement(By.linkText("Leads"));
+//		leads.click();
+//		
+//		Robot robot = new Robot();
+//		robot.keyPress(KeyEvent.VK_ESCAPE);
+//		Thread.sleep(3000);
+//		
+//		String leadstitle = driver.getTitle();
+//		String actualtitle = "Leads: Home ~ Salesforce - Developer Edition";
+//		
+//		if(leadstitle.equals(actualtitle))
+//			logger.log(LogStatus.PASS, "The Leads page is displayed properly.");
+//				else
+//			logger.log(LogStatus.FAIL, "The Leads page is not displayed properly.");
+//		
+//		WebElement newbtn = driver.findElement(By.xpath("//input[@name='new']"));
+//		newbtn.click();
+//		
+//				
+//		String newleadstitle = driver.getTitle();
+//		String actualtitle1 = "Lead Edit: New Lead ~ Salesforce - Developer Edition";
+//		
+//		if(newleadstitle.equals(actualtitle1))
+//			logger.log(LogStatus.PASS, "The New Leads page is displayed properly.");
+//				else
+//			logger.log(LogStatus.FAIL, "The New Leads page is not displayed properly.");
+//				
+//		WebElement fname = driver.findElement(By.xpath("//input[@id='name_firstlea2']"));
+//		fname.sendKeys("Fname133");
+//		
+//		WebElement lname = driver.findElement(By.xpath("//input[@id='name_lastlea2']"));
+//		lname.sendKeys("Lname13");
+//		
+//		WebElement cname = driver.findElement(By.xpath("//input[@id='lea3']"));
+//		cname.sendKeys("ABCD13");
+//		
+//		WebElement save = driver.findElement(By.xpath("//td[@id='topButtonRow']//input[@name='save']"));
+//		save.click();
+//		
+//		Thread.sleep(6000);
+//		
+//		String newleadtitle = driver.getTitle();
+//		String actualtitle2 = "Lead: Fname133 Lname13 ~ Salesforce - Developer Edition";
+//		
+//		if(newleadtitle.equals(actualtitle2))
+//			logger.log(LogStatus.PASS, "The New created Leads page is displayed properly.");
+//				else
+//			logger.log(LogStatus.FAIL, "The New created Leads page is not displayed properly.");
+//			
+//		
+//			report.flush();
+//			driver.quit();
+//	}
+//	
+////	@Test
+////	public void X_TC25Contacts() throws InterruptedException, AWTException {
+////	
+////		ExtentTest logger;
+////		ExtentReports report;
+////
+////		WebDriver driver;
+////		WebDriverManager.chromedriver().setup();
+////		driver = new ChromeDriver();
+////		
+////		
+////		String fileName = new SimpleDateFormat("'SFDCReport_'YYYYMMddHHmm'.html'").format(new Date());
+////		String path = "C:\\Users\\vasud\\Desktop\\Selenium\\" + fileName;
+////		report = new ExtentReports(path);
+////		logger = report.startTest("X_TC25Contacts");
+////
+////		
+////		driver.get("https://login.salesforce.com/");
+////		Thread.sleep(2000);
+////		WebElement uid = driver.findElement(By.id("username"));
+////		uid.sendKeys("test@tekarch.com");
+////		
+////		WebElement pwd = driver.findElement(By.id("password"));
+////		pwd.sendKeys("B@ngalore123");
+////		
+////		WebElement LoginButn = driver.findElement(By.id("Login"));
+////		LoginButn.click();
+////		Thread.sleep(10000);
+////		
+////		WebElement showAll = driver.findElement(By.xpath("//*[@id=\"AllTab_Tab\"]"));
+////		showAll.click();
+////		
+////		WebElement contacts = driver.findElement(By.linkText("Contacts"));
+////		contacts.click();
+////		
+////		Robot robot = new Robot();
+////		robot.keyPress(KeyEvent.VK_ESCAPE);
+////		Thread.sleep(3000);
+////		
+////		String contactstitle = driver.getTitle();
+////		String actualtitle = "Contacts: Home ~ Salesforce - Developer Edition";
+////		
+////		if(contactstitle.equals(actualtitle))
+////			logger.log(LogStatus.PASS, "The Contacts page is displayed properly.");
+////				else
+////			logger.log(LogStatus.FAIL, "The Contacts page is not displayed properly.");
+////		
+////		WebElement newbtn = driver.findElement(By.xpath("//input[@name='new']"));
+////		newbtn.click();
+////						
+////		String newcontit = driver.getTitle();
+////		String acttit = "Contact Edit: New Contact ~ Salesforce - Developer Edition";
+////		
+////		if(newcontit.equals(acttit))
+////			logger.log(LogStatus.PASS, "The New Contacts page is displayed properly.");
+////				else
+////			logger.log(LogStatus.FAIL, "The New Contacts page is not displayed properly.");
+////		
+////		WebElement lname = driver.findElement(By.xpath("//input[@id='name_lastcon2']"));
+////		lname.sendKeys("Test6754");
+////		
+////		WebElement acntname = driver.findElement(By.xpath("//input[@id='con4']"));
+////		acntname.sendKeys("New12 Tester12");
+////		
+////		WebElement savbtn = driver.findElement(By.xpath("//td[@id='topButtonRow']//input[@name='save']"));
+////		savbtn.click();
+////		
+////		
+////		
+////		String newcontit1 = driver.getTitle();
+////		String acttit1 = "Contact: Test6754 ~ Salesforce - Developer Edition";
+////		
+////		if(newcontit1.equals(acttit1))
+////			logger.log(LogStatus.PASS, "The NewContacts page is displayed properly.");
+////				else
+////			logger.log(LogStatus.FAIL, "The NewContacts page is not displayed properly.");
+////		
+////		
+////		report.flush();
+////		driver.quit();
+////	}
+//	
+//	@Test
+//	public void Y_TC26NewViewCon() throws InterruptedException, AWTException {
+//	
+//		ExtentTest logger;
+//		ExtentReports report;
+//
+//		WebDriver driver;
+//		WebDriverManager.chromedriver().setup();
+//		driver = new ChromeDriver();
+//		
+//		
+//		String fileName = new SimpleDateFormat("'SFDCReport_'YYYYMMddHHmm'.html'").format(new Date());
+//		String path = "C:\\Users\\vasud\\Desktop\\Selenium\\" + fileName;
+//		report = new ExtentReports(path);
+//		logger = report.startTest("Y_TC26NewViewCon");
+//
+//		
+//		driver.get("https://login.salesforce.com/");
+//		Thread.sleep(2000);
+//		WebElement uid = driver.findElement(By.id("username"));
+//		uid.sendKeys("test@tekarch.com");
+//		
+//		WebElement pwd = driver.findElement(By.id("password"));
+//		pwd.sendKeys("B@ngalore123");
+//		
+//		WebElement LoginButn = driver.findElement(By.id("Login"));
+//		LoginButn.click();
+//		Thread.sleep(10000);
+//		
+//		WebElement showAll = driver.findElement(By.xpath("//*[@id=\"AllTab_Tab\"]"));
+//		showAll.click();
+//		
+//		WebElement contacts = driver.findElement(By.linkText("Contacts"));
+//		contacts.click();
+//		
+//		Robot robot = new Robot();
+//		robot.keyPress(KeyEvent.VK_ESCAPE);
+//		Thread.sleep(3000);
+//		
+//		String contactstitle = driver.getTitle();
+//		String actualtitle = "Contacts: Home ~ Salesforce - Developer Edition";
+//		
+//		if(contactstitle.equals(actualtitle))
+//			logger.log(LogStatus.PASS, "The Contacts page is displayed properly.");
+//				else
+//			logger.log(LogStatus.FAIL, "The Contacts page is not displayed properly.");
+//		
+//		WebElement newviewlink = driver.findElement(By.linkText("Create New View"));
+//		newviewlink.click();
+//						
+//		String newviewtit = driver.getTitle();
+//		String acttit = "Contacts: Create New View ~ Salesforce - Developer Edition";
+//		
+//		if(newviewtit.equals(acttit))
+//			logger.log(LogStatus.PASS, "The Contacts New View page is displayed properly.");
+//				else
+//			logger.log(LogStatus.FAIL, "The Contacts New View page is not displayed properly.");
+//		
+//		WebElement Fname = driver.findElement(By.xpath("//input[@id='fname']"));
+//		Fname.sendKeys("New5668");
+//		
+//		
+//		WebElement savbtn = driver.findElement(By.xpath("//div[@class='pbHeader']//input[@name='save']"));
+//		savbtn.click();
+//		
+//		WebElement viewlst = driver.findElement(By.xpath("/html/body/div[1]/div[2]/table/tbody/tr/td[2]/div[1]/div[1]/form/div[1]/div/select"));
+//		Select lstitem = new Select(viewlst);
+//		String item = lstitem.getFirstSelectedOption().getText();
+//					
+//		if(item.equals("New5668"))
+//			logger.log(LogStatus.PASS, "The NewView is created from Contacts page is displayed properly.");
+//				else
+//			logger.log(LogStatus.FAIL, "The NewView is created from Contacts page is not displayed properly.");
+//		
+//		
+//		report.flush();
+//		driver.quit();
+//	}
+//	
+//	@Test
+//	public void Z_TC27CheckContact() throws InterruptedException, AWTException {
+//	
+//		ExtentTest logger;
+//		ExtentReports report;
+//
+//		WebDriver driver;
+//		WebDriverManager.chromedriver().setup();
+//		driver = new ChromeDriver();
+//		
+//		
+//		String fileName = new SimpleDateFormat("'SFDCReport_'YYYYMMddHHmm'.html'").format(new Date());
+//		String path = "C:\\Users\\vasud\\Desktop\\Selenium\\" + fileName;
+//		report = new ExtentReports(path);
+//		logger = report.startTest("Z_TC27CheckContact");
+//
+//		
+//		driver.get("https://login.salesforce.com/");
+//		Thread.sleep(2000);
+//		WebElement uid = driver.findElement(By.id("username"));
+//		uid.sendKeys("test@tekarch.com");
+//		
+//		WebElement pwd = driver.findElement(By.id("password"));
+//		pwd.sendKeys("B@ngalore123");
+//		
+//		WebElement LoginButn = driver.findElement(By.id("Login"));
+//		LoginButn.click();
+//		Thread.sleep(10000);
+//		
+//		WebElement showAll = driver.findElement(By.xpath("//*[@id=\"AllTab_Tab\"]"));
+//		showAll.click();
+//		
+//		WebElement contacts = driver.findElement(By.linkText("Contacts"));
+//		contacts.click();
+//		
+//		Robot robot = new Robot();
+//		robot.keyPress(KeyEvent.VK_ESCAPE);
+//		Thread.sleep(3000);
+//		
+//		String contactstitle = driver.getTitle();
+//		String actualtitle = "Contacts: Home ~ Salesforce - Developer Edition";
+//		
+//		if(contactstitle.equals(actualtitle))
+//			logger.log(LogStatus.PASS, "The Contacts page is displayed properly.");
+//				else
+//			logger.log(LogStatus.FAIL, "The Contacts page is not displayed properly.");
+//		
+//		WebElement contactcreated = driver.findElement(By.xpath("//select[@id='hotlist_mode']"));
+//		Select rcnt = new Select(contactcreated);
+//		rcnt.selectByVisibleText("Recently Created");
+//		
+//		WebElement Table = driver.findElement(By.xpath("//table[contains(@class,'list')]"));
+//		List<WebElement> rows = Table.findElements(By.tagName("tr"));
+//		
+//		boolean flag = false;
+//		
+//		for(int rnum=0;rnum<rows.size();rnum++)
+//		{
+//			List<WebElement> header = rows.get(rnum).findElements(By.tagName("th"));
+//			
+//			for(int head=0;head<header.size();head++)
+//			{
+//				if(header.get(head).getText().equals("Test6754"))
+//					flag=true;
+//			}
+//		}
+//		if(flag==true)
+//			logger.log(LogStatus.PASS, "The newly created contact name is displayed properly.");
+//				else
+//			logger.log(LogStatus.FAIL, "The newly created contact name is not displayed properly.");
+//				
+//				
+//		report.flush();
+//		driver.quit();
+//	}
+//	
+//	@Test
+//	public void AA_TC28MyContacts() throws InterruptedException, AWTException {
+//	
+//		ExtentTest logger;
+//		ExtentReports report;
+//
+//		WebDriver driver;
+//		WebDriverManager.chromedriver().setup();
+//		driver = new ChromeDriver();
+//		
+//		
+//		String fileName = new SimpleDateFormat("'SFDCReport_'YYYYMMddHHmm'.html'").format(new Date());
+//		String path = "C:\\Users\\vasud\\Desktop\\Selenium\\" + fileName;
+//		report = new ExtentReports(path);
+//		logger = report.startTest("AA_TC28MyContacts");
+//
+//		
+//		driver.get("https://login.salesforce.com/");
+//		Thread.sleep(2000);
+//		WebElement uid = driver.findElement(By.id("username"));
+//		uid.sendKeys("test@tekarch.com");
+//		
+//		WebElement pwd = driver.findElement(By.id("password"));
+//		pwd.sendKeys("B@ngalore123");
+//		
+//		WebElement LoginButn = driver.findElement(By.id("Login"));
+//		LoginButn.click();
+//		Thread.sleep(10000);
+//		
+//		WebElement showAll = driver.findElement(By.xpath("//*[@id=\"AllTab_Tab\"]"));
+//		showAll.click();
+//		
+//		WebElement contacts = driver.findElement(By.linkText("Contacts"));
+//		contacts.click();
+//		
+//		Robot robot = new Robot();
+//		robot.keyPress(KeyEvent.VK_ESCAPE);
+//		Thread.sleep(3000);
+//		
+//		String contactstitle = driver.getTitle();
+//		String actualtitle = "Contacts: Home ~ Salesforce - Developer Edition";
+//		
+//		if(contactstitle.equals(actualtitle))
+//			logger.log(LogStatus.PASS, "The Contacts page is displayed properly.");
+//				else
+//			logger.log(LogStatus.FAIL, "The Contacts page is not displayed properly.");
+//		
+//		WebElement viewlst = driver.findElement(By.xpath("/html[1]/body[1]/div[1]/div[2]/table[1]/tbody[1]/tr[1]/td[2]/div[2]/form[1]/div[1]/span[1]/span[1]/select[1]"));
+//		Select lstitem = new Select(viewlst);
+//		lstitem.selectByVisibleText("My Contacts");
+//		
+//		WebElement gobtn = driver.findElement(By.xpath("//input[@name='go']"));
+//		gobtn.click();
+//		
+//		Thread.sleep(6000);
+//
+//		WebElement namecol = driver.findElement(By.xpath("//div[@class='x-grid3-hd-inner x-grid3-hd-FULL_NAME']"));
+//		if(namecol.isDisplayed())
+//			logger.log(LogStatus.PASS, "The MyContacts view page is displayed properly.");
+//				else
+//			logger.log(LogStatus.FAIL, "The MyContacts view page is not displayed properly.");
+//
+//				
+//		report.flush();
+//		driver.quit();
+//	}
+//	
+//	@Test
+//	public void AB_TC29ContactOpen() throws InterruptedException, AWTException {
+//	
+//		ExtentTest logger;
+//		ExtentReports report;
+//
+//		WebDriver driver;
+//		WebDriverManager.chromedriver().setup();
+//		driver = new ChromeDriver();
+//		
+//		
+//		String fileName = new SimpleDateFormat("'SFDCReport_'YYYYMMddHHmm'.html'").format(new Date());
+//		String path = "C:\\Users\\vasud\\Desktop\\Selenium\\" + fileName;
+//		report = new ExtentReports(path);
+//		logger = report.startTest("AB_TC29ContactOpen");
+//
+//		
+//		driver.get("https://login.salesforce.com/");
+//		Thread.sleep(2000);
+//		WebElement uid = driver.findElement(By.id("username"));
+//		uid.sendKeys("test@tekarch.com");
+//		
+//		WebElement pwd = driver.findElement(By.id("password"));
+//		pwd.sendKeys("B@ngalore123");
+//		
+//		WebElement LoginButn = driver.findElement(By.id("Login"));
+//		LoginButn.click();
+//		Thread.sleep(10000);
+//		
+//		WebElement showAll = driver.findElement(By.xpath("//*[@id=\"AllTab_Tab\"]"));
+//		showAll.click();
+//		
+//		WebElement contacts = driver.findElement(By.linkText("Contacts"));
+//		contacts.click();
+//		
+//		Robot robot = new Robot();
+//		robot.keyPress(KeyEvent.VK_ESCAPE);
+//		Thread.sleep(3000);
+//		
+//		String contactstitle = driver.getTitle();
+//		String actualtitle = "Contacts: Home ~ Salesforce - Developer Edition";
+//		
+//		if(contactstitle.equals(actualtitle))
+//			logger.log(LogStatus.PASS, "The Contacts page is displayed properly.");
+//				else
+//			logger.log(LogStatus.FAIL, "The Contacts page is not displayed properly.");
+//		
+//		WebElement contactname = driver.findElement(By.xpath("//a[contains(text(),'Test675445')]"));
+//		contactname.click();
+//		Thread.sleep(6000);
+//				
+//		String contactnametit = driver.getTitle();
+//		String actualnmetitle = "Contact: Test675445 ~ Salesforce - Developer Edition";
+//		
+//		if(contactnametit.equals(actualnmetitle))
+//			logger.log(LogStatus.PASS, "The Contact Test6754 page is displayed properly.");
+//				else
+//			logger.log(LogStatus.FAIL, "The Contact Test6754 page is not displayed properly.");
+//		
+//		WebElement namefield = driver.findElement(By.xpath("//div[@id='con2_ileinner']"));
+//		String nameval = namefield.getText();
+//		
+//		if(nameval.equals("Test675445"))
+//			logger.log(LogStatus.PASS, "The Contact page shows correct name.");
+//				else
+//			logger.log(LogStatus.FAIL, "The Contact page doesnot shows correct name.");
+//		
+//				
+//		report.flush();
+//		driver.quit();
+//	}
+//	
+//	@Test
+//	public void AC_TC30NewViewError() throws InterruptedException, AWTException {
+//	
+//		ExtentTest logger;
+//		ExtentReports report;
+//
+//		WebDriver driver;
+//		WebDriverManager.chromedriver().setup();
+//		driver = new ChromeDriver();
+//		
+//		
+//		String fileName = new SimpleDateFormat("'SFDCReport_'YYYYMMddHHmm'.html'").format(new Date());
+//		String path = "C:\\Users\\vasud\\Desktop\\Selenium\\" + fileName;
+//		report = new ExtentReports(path);
+//		logger = report.startTest("AC_TC30NewViewError");
+//
+//		
+//		driver.get("https://login.salesforce.com/");
+//		Thread.sleep(2000);
+//		WebElement uid = driver.findElement(By.id("username"));
+//		uid.sendKeys("test@tekarch.com");
+//		
+//		WebElement pwd = driver.findElement(By.id("password"));
+//		pwd.sendKeys("B@ngalore123");
+//		
+//		WebElement LoginButn = driver.findElement(By.id("Login"));
+//		LoginButn.click();
+//		Thread.sleep(10000);
+//		
+//		WebElement showAll = driver.findElement(By.xpath("//*[@id=\"AllTab_Tab\"]"));
+//		showAll.click();
+//		
+//		WebElement contacts = driver.findElement(By.linkText("Contacts"));
+//		contacts.click();
+//		
+//		Robot robot = new Robot();
+//		robot.keyPress(KeyEvent.VK_ESCAPE);
+//		Thread.sleep(3000);
+//		
+//		String contactstitle = driver.getTitle();
+//		String actualtitle = "Contacts: Home ~ Salesforce - Developer Edition";
+//		
+//		if(contactstitle.equals(actualtitle))
+//			logger.log(LogStatus.PASS, "The Contacts page is displayed properly.");
+//				else
+//			logger.log(LogStatus.FAIL, "The Contacts page is not displayed properly.");
+//		
+//		WebElement newviewlink = driver.findElement(By.linkText("Create New View"));
+//		newviewlink.click();
+//						
+//		String newviewtit = driver.getTitle();
+//		String acttit = "Contacts: Create New View ~ Salesforce - Developer Edition";
+//		
+//		if(newviewtit.equals(acttit))
+//			logger.log(LogStatus.PASS, "The Contacts New View page is displayed properly.");
+//				else
+//			logger.log(LogStatus.FAIL, "The Contacts New View page is not displayed properly.");
+//		
+//		WebElement Fname = driver.findElement(By.xpath("//input[@id='fname']"));
+//		Fname.clear();
+//		
+//		WebElement uniqname = driver.findElement(By.xpath("//input[@id='devname']"));
+//		uniqname.sendKeys("New55676");
+//		
+//		WebElement savbtn = driver.findElement(By.xpath("//div[@class='pbHeader']//input[@name='save']"));
+//		savbtn.click();
+//		Thread.sleep(5000);
+//		
+//		WebElement viewlst = driver.findElement(By.xpath("//div[contains(text(),'You must enter a value')]"));
+//		String errmsg = viewlst.getText();
+//					
+//		if(errmsg.trim().equals("Error: You must enter a value"))
+//			logger.log(LogStatus.PASS, "The error message for no view name entered is displayed in create view page.");
+//				else
+//			logger.log(LogStatus.FAIL, "The error message for no view name entered is not displayed in create view page.");
+//		
+//		
+//		report.flush();
+//		driver.quit();
+//	}
+//	
+//	@Test
+//	public void AD_TC31NewViewCancel() throws InterruptedException, AWTException {
+//	
+//		ExtentTest logger;
+//		ExtentReports report;
+//
+//		WebDriver driver;
+//		WebDriverManager.chromedriver().setup();
+//		driver = new ChromeDriver();
+//		
+//		
+//		String fileName = new SimpleDateFormat("'SFDCReport_'YYYYMMddHHmm'.html'").format(new Date());
+//		String path = "C:\\Users\\vasud\\Desktop\\Selenium\\" + fileName;
+//		report = new ExtentReports(path);
+//		logger = report.startTest("AD_TC31NewViewCancel");
+//
+//		
+//		driver.get("https://login.salesforce.com/");
+//		Thread.sleep(2000);
+//		WebElement uid = driver.findElement(By.id("username"));
+//		uid.sendKeys("test@tekarch.com");
+//		
+//		WebElement pwd = driver.findElement(By.id("password"));
+//		pwd.sendKeys("B@ngalore123");
+//		
+//		WebElement LoginButn = driver.findElement(By.id("Login"));
+//		LoginButn.click();
+//		Thread.sleep(10000);
+//		
+//		WebElement showAll = driver.findElement(By.xpath("//*[@id=\"AllTab_Tab\"]"));
+//		showAll.click();
+//		
+//		WebElement contacts = driver.findElement(By.linkText("Contacts"));
+//		contacts.click();
+//		
+//		Robot robot = new Robot();
+//		robot.keyPress(KeyEvent.VK_ESCAPE);
+//		Thread.sleep(3000);
+//		
+//		String contactstitle = driver.getTitle();
+//		String actualtitle = "Contacts: Home ~ Salesforce - Developer Edition";
+//		
+//		if(contactstitle.equals(actualtitle))
+//			logger.log(LogStatus.PASS, "The Contacts page is displayed properly.");
+//				else
+//			logger.log(LogStatus.FAIL, "The Contacts page is not displayed properly.");
+//		
+//		WebElement newviewlink = driver.findElement(By.linkText("Create New View"));
+//		newviewlink.click();
+//						
+//		String newviewtit = driver.getTitle();
+//		String acttit = "Contacts: Create New View ~ Salesforce - Developer Edition";
+//		
+//		if(newviewtit.equals(acttit))
+//			logger.log(LogStatus.PASS, "The Contacts New View page is displayed properly.");
+//				else
+//			logger.log(LogStatus.FAIL, "The Contacts New View page is not displayed properly.");
+//		
+//		WebElement Fname = driver.findElement(By.xpath("//input[@id='fname']"));
+//		Fname.sendKeys("View1234");
+//		
+//		WebElement uniqname = driver.findElement(By.xpath("//input[@id='devname']"));
+//		uniqname.sendKeys("New55676");
+//		
+//		WebElement canclbtn = driver.findElement(By.xpath("//div[@class='pbHeader']//input[@name='cancel']"));
+//		canclbtn.click();
+//		
+//		
+//		
+//		String contit = driver.getTitle();
+//		String acttitle = "Contacts: Home ~ Salesforce - Developer Edition";
+//		
+//		if(contit.equals(acttitle))
+//			logger.log(LogStatus.PASS, "The Contacts page is displayed properly.");
+//				else
+//			logger.log(LogStatus.FAIL, "The Contacts page is not displayed properly.");
+//		
+//		
+//		WebElement viewnme = driver.findElement(By.xpath("//tr[contains(@class,'dataRow even first')]//th[contains(@class,'')]"));
+//		String viewnameshown = viewnme.getText();
+//					
+//		if(!viewnme.equals(viewnameshown))
+//			logger.log(LogStatus.PASS, "The View is not added as expected since we cancelled the create view.");
+//				else
+//			logger.log(LogStatus.FAIL, "The View is got added as expected since we cancelled the create view.");
+//		
+//		
+//		report.flush();
+//		driver.quit();
+//	}
+//	
+//	@Test
+//	public void AE_TC32NewContacts() throws InterruptedException, AWTException {
+//	
+//		ExtentTest logger;
+//		ExtentReports report;
+//
+//		WebDriver driver;
+//		WebDriverManager.chromedriver().setup();
+//		driver = new ChromeDriver();
+//		
+//		
+//		String fileName = new SimpleDateFormat("'SFDCReport_'YYYYMMddHHmm'.html'").format(new Date());
+//		String path = "C:\\Users\\vasud\\Desktop\\Selenium\\" + fileName;
+//		report = new ExtentReports(path);
+//		logger = report.startTest("AE_TC32NewContacts");
+//
+//		
+//		driver.get("https://login.salesforce.com/");
+//		Thread.sleep(2000);
+//		WebElement uid = driver.findElement(By.id("username"));
+//		uid.sendKeys("test@tekarch.com");
+//		
+//		WebElement pwd = driver.findElement(By.id("password"));
+//		pwd.sendKeys("B@ngalore123");
+//		
+//		WebElement LoginButn = driver.findElement(By.id("Login"));
+//		LoginButn.click();
+//		Thread.sleep(10000);
+//		
+//		WebElement showAll = driver.findElement(By.xpath("//*[@id=\"AllTab_Tab\"]"));
+//		showAll.click();
+//		
+//		WebElement contacts = driver.findElement(By.linkText("Contacts"));
+//		contacts.click();
+//		
+//		Robot robot = new Robot();
+//		robot.keyPress(KeyEvent.VK_ESCAPE);
+//		Thread.sleep(3000);
+//		
+//		String contactstitle = driver.getTitle();
+//		String actualtitle = "Contacts: Home ~ Salesforce - Developer Edition";
+//		
+//		if(contactstitle.equals(actualtitle))
+//			logger.log(LogStatus.PASS, "The Contacts page is displayed properly.");
+//				else
+//			logger.log(LogStatus.FAIL, "The Contacts page is not displayed properly.");
+//		
+//		WebElement newbtn = driver.findElement(By.xpath("//input[@name='new']"));
+//		newbtn.click();
+//						
+//		String newcontit = driver.getTitle();
+//		String acttit = "Contact Edit: New Contact ~ Salesforce - Developer Edition";
+//		
+//		if(newcontit.equals(acttit))
+//			logger.log(LogStatus.PASS, "The New Contacts page is displayed properly.");
+//				else
+//			logger.log(LogStatus.FAIL, "The New Contacts page is not displayed properly.");
+//		
+//		WebElement fname = driver.findElement(By.xpath("//input[@id='name_firstcon2']"));
+//		fname.sendKeys("Indian1");
+//		
+//		WebElement lasttname = driver.findElement(By.xpath("//input[@id='name_lastcon2']"));
+//		lasttname.sendKeys("GlobalMedia");
+//		
+//		WebElement savnewbtn = driver.findElement(By.xpath("//td[@id='topButtonRow']//input[@name='save_new']"));
+//		savnewbtn.click();
+//		
+//		Thread.sleep(5000);
+//		
+//		String conedittit = driver.getTitle();
+//		String acttitle = "Contact Edit: New Contact ~ Salesforce - Developer Edition";
+//		
+//		if(conedittit.equals(acttitle))
+//			logger.log(LogStatus.PASS, "The ContactEdit page is displayed properly.");
+//				else
+//			logger.log(LogStatus.FAIL, "The ContactEdit page is not displayed properly.");
+//		
+//		Thread.sleep(5000);
+//		
+//		
+//		
+//		WebElement contactlistings = driver.findElement(By.xpath("/html[1]/body[1]/div[1]/div[2]/table[1]/tbody[1]/tr[1]/td[1]/div[1]/div[2]/div[2]/div[2]"));
+//		List<WebElement> rows = contactlistings.findElements(By.xpath("//div[@id='hoverItem28']"));
+//		boolean flag=false;
+//		for(int rnum=0;rnum<rows.size();rnum++)
+//		{
+//			List<WebElement> header = rows.get(rnum).findElements(By.xpath("//div[@id='mru0036g00000AwfKE']"));
+//			
+//			for(int headerrow=0;headerrow<header.size();headerrow++)
+//			{
+//			if(header.get(rnum).getText().equals("Indian1 GlobalMedia"))
+//				flag=true;		
+//			}
+//		}
+//		
+//				
+//		if(flag==true)
+//			logger.log(LogStatus.PASS, "The newly added contact is saved.");
+//				else
+//			logger.log(LogStatus.FAIL, "The newly added contact is not saved.");
+//
+//		
+//		report.flush();
+//		driver.quit();
+//	}
+	
+//	@Test
+//	public void AF_TC33VerifyDetails() throws InterruptedException, AWTException {
+//	
+//		ExtentTest logger;
+//		ExtentReports report;
+//
+//		WebDriver driver;
+//		WebDriverManager.chromedriver().setup();
+//		driver = new ChromeDriver();
+//		
+//		
+//		String fileName = new SimpleDateFormat("'SFDCReport_'YYYYMMddHHmm'.html'").format(new Date());
+//		String path = "C:\\Users\\vasud\\Desktop\\Selenium\\" + fileName;
+//		report = new ExtentReports(path);
+//		logger = report.startTest("AD_TC33VerifyDetails");
+//
+//		
+//		driver.get("https://login.salesforce.com/");
+//		Thread.sleep(2000);
+//		WebElement uid = driver.findElement(By.id("username"));
+//		uid.sendKeys("test@tekarch.com");
+//		
+//		WebElement pwd = driver.findElement(By.id("password"));
+//		pwd.sendKeys("B@ngalore123");
+//		
+//		WebElement LoginButn = driver.findElement(By.id("Login"));
+//		LoginButn.click();
+//		Thread.sleep(10000);
+//		
+//		WebElement hometab = driver.findElement(By.xpath("//li[@id='home_Tab']//a[contains(text(),'Home')]"));
+//		hometab.click();
+//		
+//				
+//		Robot robot = new Robot();
+//		robot.keyPress(KeyEvent.VK_ESCAPE);
+//		Thread.sleep(3000);
+//		
+//		String contactstitle = driver.getTitle();
+//		String actualtitle = "Salesforce - Developer Edition";
+//		
+//		if(contactstitle.equals(actualtitle))
+//			logger.log(LogStatus.PASS, "The Home page is displayed properly.");
+//				else
+//			logger.log(LogStatus.FAIL, "The Home page is not displayed properly.");
+//		
+//		WebElement namedisp = driver.findElement(By.xpath("//h1[@class='currentStatusUserName']//a[contains(text(),'Vidya Venkatesh1')]"));
+//		if(namedisp.getText().equals("Vidya Venkatesh1"))
+//				logger.log(LogStatus.PASS, "The Home page shows the user first and last name properly.");
+//					else
+//				logger.log(LogStatus.FAIL, "The Home page does not shows the user first and last name properly.");
+//	
+//			
+//		WebElement contactlistings = driver.findElement(By.xpath("/html[1]/body[1]/div[1]/div[2]/table[1]/tbody[1]/tr[1]/td[1]/div[1]/div[2]/div[2]/div[2]/div[1]"));
+//		List<WebElement> rows = contactlistings.findElements(By.xpath("//div[@id='hoverItem97']"));
+//		boolean flag=false;
+//		for(int rnum=0;rnum<rows.size();rnum++)
+//		{
+//			List<WebElement> header = rows.get(rnum).findElements(By.xpath("/html[1]/body[1]/div[1]/div[2]/table[1]/tbody[1]/tr[1]/td[1]/div[1]/div[2]/div[2]/div[2]/div[1]/div[1]/a[1]"));
+//			
+//			for(int headerrow=0;headerrow<header.size();headerrow++)
+//			{
+//			if(header.get(rnum).getText().contains("Vidya Venkatesh1"))
+//				flag=true;		
+//			}
+//		}
+//		
+//				
+//		if(flag==true)
+//			logger.log(LogStatus.PASS, "The User contact name is showing in the lest pane.");
+//				else
+//			logger.log(LogStatus.FAIL, "The User contact name is not showing in the lest pane.");
+//		
+//		
+//		WebElement UsrPro = driver.findElement(By.id("userNavLabel"));
+//		UsrPro.click();
+//		
+//		WebElement myproflnk = driver.findElement(By.linkText("My Profile"));
+//		myproflnk.click();
+//		Thread.sleep(8000);
+//		
+//		WebElement namedispl = driver.findElement(By.xpath("//span[@id='tailBreadcrumbNode']"));
+//		if(namedispl.getText().contains("Vidya Venkatesh1"))
+//			logger.log(LogStatus.PASS, "The User contact name in Myprofile is same as in Home tab.");
+//				else
+//			logger.log(LogStatus.FAIL, "The User contact name in Myprofile is not same as in Home tab.");
+//
+//		
+//		report.flush();
+//		driver.quit();
+//	}
+	
+//	@Test
+//	public void AG_TC34VerifyEdit() throws InterruptedException, AWTException {
+//	
+//		ExtentTest logger;
+//		ExtentReports report;
+//
+//		WebDriver driver;
+//		WebDriverManager.chromedriver().setup();
+//		driver = new ChromeDriver();
+//		
+//		
+//		String fileName = new SimpleDateFormat("'SFDCReport_'YYYYMMddHHmm'.html'").format(new Date());
+//		String path = "C:\\Users\\vasud\\Desktop\\Selenium\\" + fileName;
+//		report = new ExtentReports(path);
+//		logger = report.startTest("AG_TC34VerifyEdit");
+//
+//		
+//		driver.get("https://login.salesforce.com/");
+//		Thread.sleep(2000);
+//		WebElement uid = driver.findElement(By.id("username"));
+//		uid.sendKeys("test@tekarch.com");
+//		
+//		WebElement pwd = driver.findElement(By.id("password"));
+//		pwd.sendKeys("B@ngalore123");
+//		
+//		WebElement LoginButn = driver.findElement(By.id("Login"));
+//		LoginButn.click();
+//		Thread.sleep(10000);
+//		
+//		WebElement hometab = driver.findElement(By.xpath("//li[@id='home_Tab']//a[contains(text(),'Home')]"));
+//		hometab.click();
+//		
+//				
+//		Robot robot = new Robot();
+//		robot.keyPress(KeyEvent.VK_ESCAPE);
+//		Thread.sleep(3000);
+//		
+//		String contactstitle = driver.getTitle();
+//		String actualtitle = "Salesforce - Developer Edition";
+//		
+//		if(contactstitle.equals(actualtitle))
+//			logger.log(LogStatus.PASS, "The Home page is displayed properly.");
+//				else
+//			logger.log(LogStatus.FAIL, "The Home page is not displayed properly.");
+//		
+//					
+//		WebElement contactlistings = driver.findElement(By.xpath("/html[1]/body[1]/div[1]/div[2]/table[1]/tbody[1]/tr[1]/td[1]/div[1]/div[2]/div[2]/div[2]/div[1]"));
+//		contactlistings.click();
+//		Thread.sleep(10000);		
+//		
+//		WebElement UsrPro = driver.findElement(By.id("userNavLabel"));
+//		UsrPro.click();
+//				
+//		String usertitle = driver.getTitle();
+//		String acttitle = "SUser: Vidya Venkatesh1 ~ Salesforce - Developer Edition";
+//		
+//		if(usertitle.equals(acttitle))
+//			logger.log(LogStatus.PASS, "The User page is displayed properly.");
+//				else
+//			logger.log(LogStatus.FAIL, "The User page is not displayed properly.");
+//		
+//		WebElement editlink = driver.findElement(By.xpath("//a[@class='contactInfoLaunch editLink']//img"));
+//		editlink.click();
+//			
+//		driver.switchTo().frame("contactInfoContentId");
+//				
+//		WebElement contab = driver.findElement(By.xpath("//*[@id=\"contactTab\"]/a"));
+//		if (contab.isSelected())
+//			logger.log(LogStatus.PASS,"Contact tab is displayed and selected.");
+//		else
+//			logger.log(LogStatus.FAIL,"Contact tab is not displayed and selected.");
+//		
+//		WebElement abouttab = driver.findElement(By.xpath("//*[@id=\"aboutTab\"]/a"));
+//		abouttab.click();
+//		
+//		WebElement lastName = driver.findElement(By.id("lastName"));
+//		lastName.clear();
+//		lastName.sendKeys("Venkatesh1Test");
+//		
+//		
+//		WebElement saveall = driver.findElement(By.xpath("//*[@id=\"TabPanel\"]/div/div[2]/form/div/input[1]"));
+//		saveall.click();
+//		Thread.sleep(8000);
+//		
+//		
+//		WebElement namedispl = driver.findElement(By.xpath("//span[@id='tailBreadcrumbNode']"));
+//		if(namedispl.getText().equals("Venkatesh1Test"))
+//			logger.log(LogStatus.PASS, "The updated name shows in the page.");
+//				else
+//			logger.log(LogStatus.FAIL, "The updated name does not shows in the page.");
+//
+//		
+//		report.flush();
+//		driver.quit();
+//	}
+//	
+	
+//	@Test
+//	public void AH_TC35Alltab() throws InterruptedException, AWTException {
+//	
+//		ExtentTest logger;
+//		ExtentReports report;
+//
+//		WebDriver driver;
+//		WebDriverManager.chromedriver().setup();
+//		driver = new ChromeDriver();
+//		
+//		
+//		String fileName = new SimpleDateFormat("'SFDCReport_'YYYYMMddHHmm'.html'").format(new Date());
+//		String path = "C:\\Users\\vasud\\Desktop\\Selenium\\" + fileName;
+//		report = new ExtentReports(path);
+//		logger = report.startTest("AH_TC35Alltab");
+//
+//		
+//		driver.get("https://login.salesforce.com/");
+//		Thread.sleep(2000);
+//		WebElement uid = driver.findElement(By.id("username"));
+//		uid.sendKeys("test@tekarch.com");
+//		
+//		WebElement pwd = driver.findElement(By.id("password"));
+//		pwd.sendKeys("B@ngalore123");
+//		
+//		WebElement LoginButn = driver.findElement(By.id("Login"));
+//		LoginButn.click();
+//		Thread.sleep(10000);
+//		
+//		WebElement showAll = driver.findElement(By.xpath("//*[@id=\"AllTab_Tab\"]"));
+//		showAll.click();
+//		
+//		WebElement customize = driver.findElement(By.xpath("//input[@name='customize']"));
+//		customize.click();
+//		
+//		Robot robot = new Robot();
+//		robot.keyPress(KeyEvent.VK_ESCAPE);
+//		Thread.sleep(3000);
+//		
+//		String custtitle = driver.getTitle();
+//		String actualtitle = "Customize My Tabs ~ Salesforce - Developer Edition";
+//		
+//		if(custtitle.equals(actualtitle))
+//			logger.log(LogStatus.PASS, "The Customize tab page is displayed properly.");
+//				else
+//			logger.log(LogStatus.FAIL, "The Customize tab page is not displayed properly.");
+//		
+//		WebElement table = driver.findElement(By.xpath("//select[@id='duel_select_1']"));
+//		Select removeoptn = new Select(table);
+//		removeoptn.selectByVisibleText("Chatter");
+//		
+//		WebElement rmve = driver.findElement(By.xpath("//img[@class='leftArrowIcon']"));
+//		rmve.click();
+//		Thread.sleep(8000);
+//		
+//		boolean flag = true;
+//		List<WebElement> items = removeoptn.getOptions();
+//		for(int i=0;i<items.size();i++)
+//		{
+//			if(items.get(i).getText().contains("Chatter"))
+//				flag = false;
+//		}
+//		
+//		if(flag == true)
+//			logger.log(LogStatus.PASS, "The value selected is removed properly from the Selected tabs section.");
+//				else
+//			logger.log(LogStatus.FAIL, "The value selected is not removed properly from the Selected tabs section.");
+//		
+//		Thread.sleep(8000);
+//		WebElement availtable = driver.findElement(By.xpath("//select[@id='duel_select_0']"));
+//		Select availoptn = new Select(availtable);
+//		boolean flag1 = false;
+//		List<WebElement> itemsavail = availoptn.getOptions();
+//		for(int i=0;i<items.size();i++)
+//		{
+//			if(itemsavail.get(i).getText().contains("Chatter"))
+//				flag1 = true;
+//		}
+//		
+//		if(flag1 == true)
+//			logger.log(LogStatus.PASS, "The value selected is added properly from the Selected tabs section to Available Tabs section.");
+//				else
+//			logger.log(LogStatus.FAIL, "The value selected is not added properly from the Selected tabs section to Available Tabs section.");
+//				
+//		WebElement savebtn = driver.findElement(By.xpath("//input[@name='save']"));
+//		savebtn.click();
+//		Thread.sleep(10000);
+//		
+//		String alltabttit = driver.getTitle();
+//		String actltitle = "All Tabs ~ Salesforce - Developer Edition";
+//		
+//		if(alltabttit.equals(actltitle))
+//			logger.log(LogStatus.PASS, "The All tab page is displayed properly after save.");
+//				else
+//			logger.log(LogStatus.FAIL, "The All tab page is not displayed properly after save.");
+//		
+//		WebElement UsrPro = driver.findElement(By.id("userNavLabel"));
+//		UsrPro.click();
+//		
+//		WebElement Logoutlnk = driver.findElement(By.linkText("Logout"));
+//		Logoutlnk.click();
+//		Thread.sleep(8000);
+//		
+//		WebElement uid1 = driver.findElement(By.id("username"));
+//		uid1.sendKeys("test@tekarch.com");
+//		
+//		WebElement pwd1 = driver.findElement(By.id("password"));
+//		pwd1.sendKeys("B@ngalore123");
+//		
+//		WebElement LoginButn1 = driver.findElement(By.id("Login"));
+//		LoginButn1.click();
+//		Thread.sleep(20000);
+//		
+//		List<WebElement> tabs123 = driver.findElements(By.xpath("//ul[@id='tabBar']"));
+//					
+//		boolean flag2 = true;
+//		for(int i=0;i<tabs123.size();i++)
+//		{
+//			if(tabs123.get(i).getText().equals("Chatter"))
+//				flag2 = false;
+//		}
+//		
+//		if(flag2 == true)
+//			logger.log(LogStatus.PASS, "The All tab section does not have the option removed.");
+//				else
+//			logger.log(LogStatus.FAIL, "The All tab section still have the option removed.");
+//		
+//		
+//		report.flush();
+//		driver.quit();
+//	}
+	
 	@Test
-	public void S_TC20_leadsTab() throws InterruptedException, AWTException {
-	
-		ExtentTest logger;
-		ExtentReports report;
-		
-		WebDriver driver;
-		WebDriverManager.firefoxdriver().setup();
-		
-		driver = new FirefoxDriver();
-		
-		String fileName = new SimpleDateFormat("'SFDCReport_'YYYYMMddHHmm'.html'").format(new Date());
-		String path = "C:\\Users\\vasud\\Desktop\\Selenium\\" + fileName;
-		report = new ExtentReports(path);
-		logger = report.startTest("S_TC20_leadsTab");
-		
-		driver.get("https://login.salesforce.com/");
-		Thread.sleep(2000);
-		WebElement uid = driver.findElement(By.id("username"));
-		uid.sendKeys("test@tekarch.com");
-		
-		WebElement pwd = driver.findElement(By.id("password"));
-		pwd.sendKeys("B@ngalore123");
-		
-		WebElement LoginButn = driver.findElement(By.id("Login"));
-		LoginButn.click();
-		Thread.sleep(10000);
-		
-		WebElement showAll = driver.findElement(By.xpath("//*[@id=\"AllTab_Tab\"]"));
-		showAll.click();
-		
-		WebElement leads = driver.findElement(By.linkText("Leads"));
-		leads.click();
-		
-		Robot robot = new Robot();
-		robot.keyPress(KeyEvent.VK_ESCAPE);
-		Thread.sleep(3000);
-		
-		String leadstitle = driver.getTitle();
-		String actualtitle = "Leads: Home ~ Salesforce - Developer Edition";
-		
-		if(leadstitle.equals(actualtitle))
-			logger.log(LogStatus.PASS, "The Leads page is displayed properly.");
-				else
-			logger.log(LogStatus.FAIL, "The Leads page is not displayed properly.");
-		
-			
-			report.flush();
-			driver.quit();
-	}
-	
-	@Test
-	public void T_TC21leadsSelectView() throws InterruptedException, AWTException {
-	
-		ExtentTest logger;
-		ExtentReports report;
-		
-		WebDriver driver;
-		WebDriverManager.firefoxdriver().setup();
-		
-		driver = new FirefoxDriver();
-		
-		String fileName = new SimpleDateFormat("'SFDCReport_'YYYYMMddHHmm'.html'").format(new Date());
-		String path = "C:\\Users\\vasud\\Desktop\\Selenium\\" + fileName;
-		report = new ExtentReports(path);
-		logger = report.startTest("T_TC21leadsSelectView");
-		
-		driver.get("https://login.salesforce.com/");
-		Thread.sleep(2000);
-		WebElement uid = driver.findElement(By.id("username"));
-		uid.sendKeys("test@tekarch.com");
-		
-		WebElement pwd = driver.findElement(By.id("password"));
-		pwd.sendKeys("B@ngalore123");
-		
-		WebElement LoginButn = driver.findElement(By.id("Login"));
-		LoginButn.click();
-		Thread.sleep(10000);
-		
-		WebElement showAll = driver.findElement(By.xpath("//*[@id=\"AllTab_Tab\"]"));
-		showAll.click();
-		
-		
-		WebElement leads = driver.findElement(By.linkText("Leads"));
-		leads.click();
-		
-		Robot robot = new Robot();
-		robot.keyPress(KeyEvent.VK_ESCAPE);
-		Thread.sleep(3000);
-		
-		String leadstitle = driver.getTitle();
-		String actualtitle = "Leads: Home ~ Salesforce - Developer Edition";
-		
-		if(leadstitle.equals(actualtitle))
-			logger.log(LogStatus.PASS, "The Leads page is displayed properly.");
-				else
-			logger.log(LogStatus.FAIL, "The Leads page is not displayed properly.");
-		
-		WebElement leadlist = driver.findElement(By.xpath("//select[@id='fcf']"));
-		Select leadlistitem = new Select(leadlist);
-		List<WebElement> alloptions = leadlistitem.getOptions();
-		
-		
-		String [] listsitems = {"All Open Leads","My Unread Leads","Recently Viewed Leads",
-				"Today's Leads"};
-		
-			for(int i=0;i<4;i++)
-			{
-			listsitems[i] = alloptions.get(i).getText();
-			}
-			
-			
-			for(int i=0;i<4;i++)
-			{
-				if(listsitems[i].equals(alloptions.get(i).getText()))
-					logger.log(LogStatus.PASS, "The Opportunities list item"+listsitems[i]+" is displayed properly.");
-				else
-					logger.log(LogStatus.FAIL, "The Opportunities list item"+listsitems[i]+" is not displayed properly.");
-			}	
-			report.flush();
-			driver.quit();
-	}
-	
-	@Test
-	public void U_TC22defaultView() throws InterruptedException, AWTException {
-	
-		ExtentTest logger;
-		ExtentReports report;
-		
-		WebDriver driver;
-		WebDriverManager.firefoxdriver().setup();
-		
-		driver = new FirefoxDriver();
-		
-		String fileName = new SimpleDateFormat("'SFDCReport_'YYYYMMddHHmm'.html'").format(new Date());
-		String path = "C:\\Users\\vasud\\Desktop\\Selenium\\" + fileName;
-		report = new ExtentReports(path);
-		logger = report.startTest("U_TC22defaultView");
-		
-		driver.get("https://login.salesforce.com/");
-		Thread.sleep(2000);
-		WebElement uid = driver.findElement(By.id("username"));
-		uid.sendKeys("test@tekarch.com");
-		
-		WebElement pwd = driver.findElement(By.id("password"));
-		pwd.sendKeys("B@ngalore123");
-		
-		WebElement LoginButn = driver.findElement(By.id("Login"));
-		LoginButn.click();
-		Thread.sleep(10000);
-		
-		WebElement showAll = driver.findElement(By.xpath("//*[@id=\"AllTab_Tab\"]"));
-		showAll.click();
-		
-		WebElement leads = driver.findElement(By.linkText("Leads"));
-		leads.click();
-		
-		Robot robot = new Robot();
-		robot.keyPress(KeyEvent.VK_ESCAPE);
-		Thread.sleep(3000);
-		
-		String leadstitle = driver.getTitle();
-		String actualtitle = "Leads: Home ~ Salesforce - Developer Edition";
-		
-		if(leadstitle.equals(actualtitle))
-			logger.log(LogStatus.PASS, "The Leads page is displayed properly.");
-				else
-			logger.log(LogStatus.FAIL, "The Leads page is not displayed properly.");
-		
-		WebElement leadlist = driver.findElement(By.xpath("//select[@id='fcf']"));
-		Select leadlistitem = new Select(leadlist);
-		leadlistitem.selectByValue("My Unread Leads");
-		
-		WebElement logoutpage = driver.findElement(By.xpath("//span[@id='userNavLabel']"));
-		logoutpage.click();
-		
-		WebElement logout = driver.findElement(By.linkText("Logout"));
-		logout.click();
-		
-		WebElement login = driver.findElement(By.xpath("//input[@id='username']"));
-		login.sendKeys("test@tekarch.com");
-		
-		WebElement pwd1 = driver.findElement(By.xpath("//input[@id='password']"));
-		pwd1.sendKeys("B@ngalore123");
-		
-		WebElement lgnbtn = driver.findElement(By.xpath("//input[@id='Login']"));
-		lgnbtn.click();
-		
-		Thread.sleep(10000);
-		
-		WebElement showAll1 = driver.findElement(By.xpath("//*[@id=\"AllTab_Tab\"]"));
-		showAll1.click();
-		
-		WebElement leads1 = driver.findElement(By.linkText("Leads"));
-		leads1.click();
-		
-		Robot robot1 = new Robot();
-		robot1.keyPress(KeyEvent.VK_ESCAPE);
-		Thread.sleep(3000);
-		
-		WebElement gobtn = driver.findElement(By.xpath("//span[@class='fBody']//input[@name='go']"));
-		gobtn.click();
-		
-		Thread.sleep(6000);
-		WebElement leadlist1 = driver.findElement(By.xpath("//select[@id='00B6g00000B5PJJ_listSelect']"));
-		Select leadlistitem1 = new Select(leadlist1);
-		String selitem = leadlistitem1.getFirstSelectedOption().getText();
-		
-		if(selitem.equals("My Unread Leads"))
-			logger.log(LogStatus.PASS, "The Leads list has previous selected value.");
-		else
-			logger.log(LogStatus.FAIL, "The Leads list does not have previous selected value.");
-
-		
-			report.flush();
-			driver.quit();
-	}
-	
-	
-	@Test
-	public void V_TC23TodaysLEads() throws InterruptedException, AWTException {
-	
-		ExtentTest logger;
-		ExtentReports report;
-		
-		WebDriver driver;
-		WebDriverManager.firefoxdriver().setup();
-		
-		driver = new FirefoxDriver();
-		
-		String fileName = new SimpleDateFormat("'SFDCReport_'YYYYMMddHHmm'.html'").format(new Date());
-		String path = "C:\\Users\\vasud\\Desktop\\Selenium\\" + fileName;
-		report = new ExtentReports(path);
-		logger = report.startTest("V_TC23TodaysLEads");
-		
-		driver.get("https://login.salesforce.com/");
-		Thread.sleep(2000);
-		WebElement uid = driver.findElement(By.id("username"));
-		uid.sendKeys("test@tekarch.com");
-		
-		WebElement pwd = driver.findElement(By.id("password"));
-		pwd.sendKeys("B@ngalore123");
-		
-		WebElement LoginButn = driver.findElement(By.id("Login"));
-		LoginButn.click();
-		Thread.sleep(10000);
-		
-		WebElement showAll = driver.findElement(By.xpath("//*[@id=\"AllTab_Tab\"]"));
-		showAll.click();
-		
-		WebElement leads = driver.findElement(By.linkText("Leads"));
-		leads.click();
-		
-		Robot robot = new Robot();
-		robot.keyPress(KeyEvent.VK_ESCAPE);
-		Thread.sleep(3000);
-		
-		String leadstitle = driver.getTitle();
-		String actualtitle = "Leads: Home ~ Salesforce - Developer Edition";
-		
-		if(leadstitle.equals(actualtitle))
-			logger.log(LogStatus.PASS, "The Leads page is displayed properly.");
-				else
-			logger.log(LogStatus.FAIL, "The Leads page is not displayed properly.");
-		
-		WebElement leadlist = driver.findElement(By.xpath("//select[@id='fcf']"));
-		Select leadlistitem = new Select(leadlist);
-		leadlistitem.selectByValue("Today's Leads");
-		
-				
-		WebElement gobtn = driver.findElement(By.xpath("//span[@class='fBody']//input[@name='go']"));
-		gobtn.click();
-		
-		Thread.sleep(6000);
-		WebElement leadlist1 = driver.findElement(By.xpath("//select[@id='00B6g00000B5PJJ_listSelect']"));
-		Select leadlistitem1 = new Select(leadlist1);
-		String selitem = leadlistitem1.getFirstSelectedOption().getText();
-		
-		if(selitem.equals("Today's Leads"))
-			logger.log(LogStatus.PASS, "The Leads page shows Todays leads page.");
-		else
-			logger.log(LogStatus.FAIL, "The Leads page does not shows Todays leads page.");
-
-		
-			report.flush();
-			driver.quit();
-	}
-	
-	@Test
-	public void W_TC24NewLeads() throws InterruptedException, AWTException {
-	
-		ExtentTest logger;
-		ExtentReports report;
-		
-		WebDriver driver;
-		WebDriverManager.firefoxdriver().setup();
-		
-		driver = new FirefoxDriver();
-		
-		String fileName = new SimpleDateFormat("'SFDCReport_'YYYYMMddHHmm'.html'").format(new Date());
-		String path = "C:\\Users\\vasud\\Desktop\\Selenium\\" + fileName;
-		report = new ExtentReports(path);
-		logger = report.startTest("W_TC24NewLeads");
-		
-		driver.get("https://login.salesforce.com/");
-		Thread.sleep(2000);
-		WebElement uid = driver.findElement(By.id("username"));
-		uid.sendKeys("test@tekarch.com");
-		
-		WebElement pwd = driver.findElement(By.id("password"));
-		pwd.sendKeys("B@ngalore123");
-		
-		WebElement LoginButn = driver.findElement(By.id("Login"));
-		LoginButn.click();
-		Thread.sleep(10000);
-		
-		WebElement showAll = driver.findElement(By.xpath("//*[@id=\"AllTab_Tab\"]"));
-		showAll.click();
-		
-		WebElement leads = driver.findElement(By.linkText("Leads"));
-		leads.click();
-		
-		Robot robot = new Robot();
-		robot.keyPress(KeyEvent.VK_ESCAPE);
-		Thread.sleep(3000);
-		
-		String leadstitle = driver.getTitle();
-		String actualtitle = "Leads: Home ~ Salesforce - Developer Edition";
-		
-		if(leadstitle.equals(actualtitle))
-			logger.log(LogStatus.PASS, "The Leads page is displayed properly.");
-				else
-			logger.log(LogStatus.FAIL, "The Leads page is not displayed properly.");
-		
-		WebElement newbtn = driver.findElement(By.xpath("//input[@name='new']"));
-		newbtn.click();
-		
-				
-		String newleadstitle = driver.getTitle();
-		String actualtitle1 = "Lead Edit: New Lead ~ Salesforce - Developer Edition";
-		
-		if(newleadstitle.equals(actualtitle1))
-			logger.log(LogStatus.PASS, "The New Leads page is displayed properly.");
-				else
-			logger.log(LogStatus.FAIL, "The New Leads page is not displayed properly.");
-				
-		WebElement fname = driver.findElement(By.xpath("//input[@id='name_firstlea2']"));
-		fname.sendKeys("Fname12");
-		
-		WebElement lname = driver.findElement(By.xpath("//input[@id='name_lastlea2']"));
-		lname.sendKeys("Lname12");
-		
-		WebElement cname = driver.findElement(By.xpath("//input[@id='lea3']"));
-		cname.sendKeys("ABCD");
-		
-		WebElement save = driver.findElement(By.xpath("//td[@id='topButtonRow']//input[@name='save']"));
-		save.click();
-		
-		Thread.sleep(6000);
-		
-		
-		String newleadtitle = driver.getTitle();
-		String actualtitle2 = "Lead: Lname12 ~ Salesforce - Developer Edition";
-		
-		if(newleadtitle.equals(actualtitle2))
-			logger.log(LogStatus.PASS, "The New created Leads page is displayed properly.");
-				else
-			logger.log(LogStatus.FAIL, "The New created Leads page is not displayed properly.");
-			
-		
-			report.flush();
-			driver.quit();
-	}
-	
-	@Test
-	public void X_TC25Contacts() throws InterruptedException, AWTException {
+	public void AI_TC36_Calendar() throws InterruptedException, AWTException, ParseException {
 	
 		ExtentTest logger;
 		ExtentReports report;
@@ -1844,7 +2821,7 @@ public class SDFCTestCases<SelectElement> {
 		String fileName = new SimpleDateFormat("'SFDCReport_'YYYYMMddHHmm'.html'").format(new Date());
 		String path = "C:\\Users\\vasud\\Desktop\\Selenium\\" + fileName;
 		report = new ExtentReports(path);
-		logger = report.startTest("X_TC25Contacts");
+		logger = report.startTest("AI_TC36_Calendar");
 
 		
 		driver.get("https://login.salesforce.com/");
@@ -1859,201 +2836,117 @@ public class SDFCTestCases<SelectElement> {
 		LoginButn.click();
 		Thread.sleep(10000);
 		
-		WebElement showAll = driver.findElement(By.xpath("//*[@id=\"AllTab_Tab\"]"));
-		showAll.click();
-		
-		WebElement contacts = driver.findElement(By.linkText("Contacts"));
-		contacts.click();
-		
+		WebElement hometab = driver.findElement(By.xpath("//li[@id='home_Tab']//a[contains(text(),'Home')]"));
+		hometab.click();
+		Thread.sleep(8000);
 		Robot robot = new Robot();
 		robot.keyPress(KeyEvent.VK_ESCAPE);
 		Thread.sleep(3000);
 		
-		String contactstitle = driver.getTitle();
-		String actualtitle = "Contacts: Home ~ Salesforce - Developer Edition";
+		WebElement currdate = driver.findElement(By.xpath("/html[1]/body[1]/div[1]/div[2]/table[1]/tbody[1]/tr[1]/td[2]/div[1]/div[1]/div[1]/div[2]/span[2]/a[1]"));
+		String appdate = currdate.getText();
+				
+		Date sysdate = new Date();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE MMMM dd,yyyy");
+		String sysdate1 = dateFormat.format((sysdate));
 		
-		if(contactstitle.equals(actualtitle))
-			logger.log(LogStatus.PASS, "The Contacts page is displayed properly.");
-				else
-			logger.log(LogStatus.FAIL, "The Contacts page is not displayed properly.");
-		
-		WebElement newbtn = driver.findElement(By.xpath("//input[@name='new']"));
-		newbtn.click();
-						
-		String newcontit = driver.getTitle();
-		String acttit = "Contact Edit: New Contact ~ Salesforce - Developer Edition";
-		
-		if(newcontit.equals(acttit))
-			logger.log(LogStatus.PASS, "The New Contacts page is displayed properly.");
-				else
-			logger.log(LogStatus.FAIL, "The New Contacts page is not displayed properly.");
-		
-		WebElement lname = driver.findElement(By.xpath("//input[@id='name_lastcon2']"));
-		lname.sendKeys("Test6754");
-		
-		WebElement acntname = driver.findElement(By.xpath("//input[@id='con4']"));
-		acntname.sendKeys("New12 Tester12");
-		
-		WebElement savbtn = driver.findElement(By.xpath("//td[@id='topButtonRow']//input[@name='save']"));
-		savbtn.click();
-		
-		
-		
-		String newcontit1 = driver.getTitle();
-		String acttit1 = "Contact: Test6754 ~ Salesforce - Developer Edition";
-		
-		if(newcontit1.equals(acttit1))
-			logger.log(LogStatus.PASS, "The NewContacts page is displayed properly.");
-				else
-			logger.log(LogStatus.FAIL, "The NewContacts page is not displayed properly.");
-		
-		
-		report.flush();
-		driver.quit();
-	}
-	
-	@Test
-	public void Y_TC26NewViewCon() throws InterruptedException, AWTException {
-	
-		ExtentTest logger;
-		ExtentReports report;
-
-		WebDriver driver;
-		WebDriverManager.chromedriver().setup();
-		driver = new ChromeDriver();
-		
-		
-		String fileName = new SimpleDateFormat("'SFDCReport_'YYYYMMddHHmm'.html'").format(new Date());
-		String path = "C:\\Users\\vasud\\Desktop\\Selenium\\" + fileName;
-		report = new ExtentReports(path);
-		logger = report.startTest("Y_TC26NewViewCon");
-
-		
-		driver.get("https://login.salesforce.com/");
-		Thread.sleep(2000);
-		WebElement uid = driver.findElement(By.id("username"));
-		uid.sendKeys("test@tekarch.com");
-		
-		WebElement pwd = driver.findElement(By.id("password"));
-		pwd.sendKeys("B@ngalore123");
-		
-		WebElement LoginButn = driver.findElement(By.id("Login"));
-		LoginButn.click();
-		Thread.sleep(10000);
-		
-		WebElement showAll = driver.findElement(By.xpath("//*[@id=\"AllTab_Tab\"]"));
-		showAll.click();
-		
-		WebElement contacts = driver.findElement(By.linkText("Contacts"));
-		contacts.click();
-		
-		Robot robot = new Robot();
-		robot.keyPress(KeyEvent.VK_ESCAPE);
-		Thread.sleep(3000);
-		
-		String contactstitle = driver.getTitle();
-		String actualtitle = "Contacts: Home ~ Salesforce - Developer Edition";
-		
-		if(contactstitle.equals(actualtitle))
-			logger.log(LogStatus.PASS, "The Contacts page is displayed properly.");
-				else
-			logger.log(LogStatus.FAIL, "The Contacts page is not displayed properly.");
-		
-		WebElement newviewlink = driver.findElement(By.linkText("Create New View"));
-		newviewlink.click();
-						
-		String newviewtit = driver.getTitle();
-		String acttit = "Contacts: Create New View ~ Salesforce - Developer Edition";
-		
-		if(newviewtit.equals(acttit))
-			logger.log(LogStatus.PASS, "The Contacts New View page is displayed properly.");
-				else
-			logger.log(LogStatus.FAIL, "The Contacts New View page is not displayed properly.");
-		
-		WebElement Fname = driver.findElement(By.xpath("//input[@id='fname']"));
-		Fname.sendKeys("New5555");
-		
-		WebElement uniqname = driver.findElement(By.xpath("//input[@id='devname']"));
-		uniqname.sendKeys("New55556");
-		
-		WebElement savbtn = driver.findElement(By.xpath("//div[@class='pbHeader']//input[@name='save']"));
-		savbtn.click();
-		
-		WebElement viewlst = driver.findElement(By.xpath("//select[@id='00B6g00000Bf646_listSelect']"));
-		Select lstitem = new Select(viewlst);
-		String item = lstitem.getFirstSelectedOption().getText();
 					
-		if(item.equals("New5555"))
-			logger.log(LogStatus.PASS, "The NewView is created from Contacts page is displayed properly.");
+		if(sysdate1.equals(appdate))
+			logger.log(LogStatus.PASS, "The All tab section does not have the option removed.");
 				else
-			logger.log(LogStatus.FAIL, "The NewView is created from Contacts page is not displayed properly.");
+			logger.log(LogStatus.FAIL, "The All tab section still have the option removed.");
 		
+		WebElement datelink = driver.findElement(By.xpath("/html[1]/body[1]/div[1]/div[2]/table[1]/tbody[1]/tr[1]/td[2]/div[1]/div[1]/div[1]/div[2]/span[2]/a[1]"));
+		datelink.click();
 		
-		report.flush();
-		driver.quit();
+		WebElement textinpage = driver.findElement(By.xpath("//h1[@class='pageType']"));
+		String textact = textinpage.getText();
+		
+		String expttxt = "Calendar for Vidya Venkatesh1Test";
+		
+		if(textact.contains(expttxt))
+			logger.log(LogStatus.PASS, "The Calendar for Firstname Lastname is shown in the page.");
+				else
+			logger.log(LogStatus.FAIL, "The Calendar for Firstname Lastname is not shown in the page.");
+		
+		WebElement linktime = driver.findElement(By.xpath("//a[contains(text(),'8:00 PM')]"));
+		linktime.click();
+		
+		String exptit = "Calendar: New Event ~ Salesforce - Developer Edition";
+		String acttitle1 = driver.getTitle();
+		
+		if(acttitle1.equals(exptit))
+			logger.log(LogStatus.PASS, "The Calendar: New Event page is displayed correctly.");
+				else
+			logger.log(LogStatus.FAIL, "The Calendar: New Event page is not displayed correctly.");
+
+		WebElement expectedElement = driver.findElement(By.xpath("//input[@id='evt5']"));
+		
+		if(expectedElement.equals(driver.switchTo().activeElement()))
+			logger.log(LogStatus.PASS, "The cursor is at correct Subject textbox.");
+				else
+			logger.log(LogStatus.FAIL, "The cursor is not at correct Subject textbox.");
+
+		WebElement subicon = driver.findElement(By.xpath("//img[@class='comboboxIcon']"));
+		subicon.click();
+		
+		String oldwin = driver.getWindowHandle();
+		
+		Set<String> getallwin = driver.getWindowHandles();
+		
+		String [] getwin = getallwin.toArray(new String[getallwin.size()]);
+		
+		driver.switchTo().window(getwin[1]);
+		
+		WebElement dialoglinkother = driver.findElement(By.xpath("//a[contains(text(),'Other')]"));
+		dialoglinkother.click();
+		
+		Thread.sleep(6000);
+		driver.switchTo().window(oldwin);
+		String currwin = driver.getWindowHandle();
+		
+		if(oldwin.equals(currwin))
+			logger.log(LogStatus.PASS, "The dialog is closed and now the focus is back to original window.");
+				else
+			logger.log(LogStatus.FAIL, "The dialog is not closed and now the focus is back to original window.");
+
+		WebElement expElement = driver.findElement(By.xpath("//input[@id='evt5']"));
+		
+		if(expElement.getText().equals("Other"))
+			logger.log(LogStatus.PASS, "The option Other is selected from the dialog box.");
+				else
+			logger.log(LogStatus.FAIL, "The option Other is not selected from the dialog box.");
+		
+			WebElement timedrop = driver.findElement(By.xpath("//input[@id='EndDateTime_time']"));
+			timedrop.click();
+			
+			WebElement timedrop1 = driver.findElement(By.xpath("//div[@id='timePickerItem_43']"));
+			timedrop1.click();
+			
+			
+			WebElement savebtn = driver.findElement(By.xpath("//div[@id='ep']//div[contains(@class,'pbHeader')]//input[1]"));
+			savebtn.click();
+			
+			WebElement calendar = driver.findElement(By.xpath("//h1[@class='pageType']"));
+			String visibletxt = calendar.getText();
+			
+			if(visibletxt.contains("Calendar for Vidya Venkatesh1Test"))
+				logger.log(LogStatus.PASS, "The Calendar is saved for User FirstNameLastName.");
+					else
+				logger.log(LogStatus.FAIL, "The Calendar is not saved for User FirstNameLastName.");
+	
+			WebElement event = driver.findElement(By.xpath("//*[@id=\"p:f:j_id25:j_id69:28:j_id71:0:j_id72:calendarEvent:j_id84\"]/a"));
+			if(event.getText().equals("Other"))
+				logger.log(LogStatus.PASS, "The Event Other is saved in the Caledar.");
+					else
+				logger.log(LogStatus.FAIL, "The Event Other is not saved in the Caledar.");
+			
+			
+			report.flush();
+			driver.quit();
+		
+
 	}
 	
-	@Test
-	public void Z_TC27CheckContact() throws InterruptedException, AWTException {
-	
-		ExtentTest logger;
-		ExtentReports report;
-
-		WebDriver driver;
-		WebDriverManager.chromedriver().setup();
-		driver = new ChromeDriver();
-		
-		
-		String fileName = new SimpleDateFormat("'SFDCReport_'YYYYMMddHHmm'.html'").format(new Date());
-		String path = "C:\\Users\\vasud\\Desktop\\Selenium\\" + fileName;
-		report = new ExtentReports(path);
-		logger = report.startTest("Z_TC27CheckContact");
-
-		
-		driver.get("https://login.salesforce.com/");
-		Thread.sleep(2000);
-		WebElement uid = driver.findElement(By.id("username"));
-		uid.sendKeys("test@tekarch.com");
-		
-		WebElement pwd = driver.findElement(By.id("password"));
-		pwd.sendKeys("B@ngalore123");
-		
-		WebElement LoginButn = driver.findElement(By.id("Login"));
-		LoginButn.click();
-		Thread.sleep(10000);
-		
-		WebElement showAll = driver.findElement(By.xpath("//*[@id=\"AllTab_Tab\"]"));
-		showAll.click();
-		
-		WebElement contacts = driver.findElement(By.linkText("Contacts"));
-		contacts.click();
-		
-		Robot robot = new Robot();
-		robot.keyPress(KeyEvent.VK_ESCAPE);
-		Thread.sleep(3000);
-		
-		String contactstitle = driver.getTitle();
-		String actualtitle = "Contacts: Home ~ Salesforce - Developer Edition";
-		
-		if(contactstitle.equals(actualtitle))
-			logger.log(LogStatus.PASS, "The Contacts page is displayed properly.");
-				else
-			logger.log(LogStatus.FAIL, "The Contacts page is not displayed properly.");
-		
-		WebElement contactcreated = driver.findElement(By.xpath("//select[@id='hotlist_mode']"));
-		Select rcnt = new Select(contactcreated);
-		rcnt.selectByValue("Recently Created");
-		
-		WebElement firstrow = driver.findElement(By.xpath("//tr[contains(@class,'dataRow even first')]//th[contains(@class,'')]"));
-		String contname = firstrow.getText();
-		if(contname.equals("Test6754"))
-			logger.log(LogStatus.PASS, "The newly created contact name is displayed properly.");
-				else
-			logger.log(LogStatus.FAIL, "The newly created contact name is not displayed properly.");
-						
-				
-		report.flush();
-		driver.quit();
-	}
 	
 }
