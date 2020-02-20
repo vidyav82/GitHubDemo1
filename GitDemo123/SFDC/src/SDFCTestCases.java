@@ -2807,8 +2807,150 @@ public class SDFCTestCases<SelectElement> {
 //		driver.quit();
 //	}
 	
+//	@Test
+//	public void AI_TC36_Calendar() throws InterruptedException, AWTException, ParseException {
+//	
+//		ExtentTest logger;
+//		ExtentReports report;
+//
+//		WebDriver driver;
+//		WebDriverManager.chromedriver().setup();
+//		driver = new ChromeDriver();
+//		
+//		
+//		String fileName = new SimpleDateFormat("'SFDCReport_'YYYYMMddHHmm'.html'").format(new Date());
+//		String path = "C:\\Users\\vasud\\Desktop\\Selenium\\" + fileName;
+//		report = new ExtentReports(path);
+//		logger = report.startTest("AI_TC36_Calendar");
+//
+//		
+//		driver.get("https://login.salesforce.com/");
+//		Thread.sleep(2000);
+//		WebElement uid = driver.findElement(By.id("username"));
+//		uid.sendKeys("test@tekarch.com");
+//		
+//		WebElement pwd = driver.findElement(By.id("password"));
+//		pwd.sendKeys("B@ngalore123");
+//		
+//		WebElement LoginButn = driver.findElement(By.id("Login"));
+//		LoginButn.click();
+//		Thread.sleep(10000);
+//		
+//		WebElement hometab = driver.findElement(By.xpath("//li[@id='home_Tab']//a[contains(text(),'Home')]"));
+//		hometab.click();
+//		Thread.sleep(8000);
+//		Robot robot = new Robot();
+//		robot.keyPress(KeyEvent.VK_ESCAPE);
+//		Thread.sleep(3000);
+//		
+//		WebElement currdate = driver.findElement(By.xpath("/html[1]/body[1]/div[1]/div[2]/table[1]/tbody[1]/tr[1]/td[2]/div[1]/div[1]/div[1]/div[2]/span[2]/a[1]"));
+//		String appdate = currdate.getText();
+//				
+//		Date sysdate = new Date();
+//		SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE MMMM dd, yyyy");
+//		String sysdate1 = dateFormat.format((sysdate));
+//		
+//					
+//		if(sysdate1.equals(appdate))
+//			logger.log(LogStatus.PASS, "The Current date matches the system date.");
+//				else
+//			logger.log(LogStatus.FAIL, "The Current date does not matches the system date.");
+//		
+//		WebElement datelink = driver.findElement(By.xpath("/html[1]/body[1]/div[1]/div[2]/table[1]/tbody[1]/tr[1]/td[2]/div[1]/div[1]/div[1]/div[2]/span[2]/a[1]"));
+//		datelink.click();
+//		
+//		WebElement textinpage = driver.findElement(By.xpath("//h1[@class='pageType']"));
+//		String textact = textinpage.getText();
+//		
+//		String expttxt = "Calendar for Vidya Venkatesh1Test";
+//		
+//		if(textact.contains(expttxt))
+//			logger.log(LogStatus.PASS, "The Calendar for Firstname Lastname is shown in the page.");
+//				else
+//			logger.log(LogStatus.FAIL, "The Calendar for Firstname Lastname is not shown in the page.");
+//		
+//		WebElement linktime = driver.findElement(By.xpath("//a[contains(text(),'8:00 PM')]"));
+//		linktime.click();
+//		
+//		String exptit = "Calendar: New Event ~ Salesforce - Developer Edition";
+//		String acttitle1 = driver.getTitle();
+//		
+//		if(acttitle1.equals(exptit))
+//			logger.log(LogStatus.PASS, "The Calendar: New Event page is displayed correctly.");
+//				else
+//			logger.log(LogStatus.FAIL, "The Calendar: New Event page is not displayed correctly.");
+//
+//		WebElement expectedElement = driver.findElement(By.xpath("//input[@id='evt5']"));
+//		
+//		if(expectedElement.equals(driver.switchTo().activeElement()))
+//			logger.log(LogStatus.PASS, "The cursor is at correct Subject textbox.");
+//				else
+//			logger.log(LogStatus.FAIL, "The cursor is not at correct Subject textbox.");
+//
+//		WebElement subicon = driver.findElement(By.xpath("//img[@class='comboboxIcon']"));
+//		subicon.click();
+//		
+//		String oldwin = driver.getWindowHandle();
+//		
+//		Set<String> getallwin = driver.getWindowHandles();
+//		
+//		String [] getwin = getallwin.toArray(new String[getallwin.size()]);
+//		
+//		driver.switchTo().window(getwin[1]);
+//		
+//		WebElement dialoglinkother = driver.findElement(By.xpath("//a[contains(text(),'Other')]"));
+//		dialoglinkother.click();
+//		
+//		Thread.sleep(6000);
+//		driver.switchTo().window(oldwin);
+//		String currwin = driver.getWindowHandle();
+//		
+//		if(oldwin.equals(currwin))
+//			logger.log(LogStatus.PASS, "The dialog is closed and now the focus is back to original window.");
+//				else
+//			logger.log(LogStatus.FAIL, "The dialog is not closed and now the focus is back to original window.");
+//
+//		WebElement expElement = driver.findElement(By.xpath("//input[@id='evt5']"));
+//		
+//		if(expElement.getAttribute("value").equals("Other"))
+//			logger.log(LogStatus.PASS, "The option Other is selected from the dialog box.");
+//				else
+//			logger.log(LogStatus.FAIL, "The option Other is not selected from the dialog box.");
+//		
+//			WebElement timedrop = driver.findElement(By.xpath("//input[@id='EndDateTime_time']"));
+//			timedrop.click();
+//			
+//			WebElement timedrop1 = driver.findElement(By.xpath("//div[@id='timePickerItem_43']"));
+//			timedrop1.click();
+//			
+//			
+//			WebElement savebtn = driver.findElement(By.xpath("//div[@id='ep']//div[contains(@class,'pbHeader')]//input[1]"));
+//			savebtn.click();
+//			
+//			WebElement calendar = driver.findElement(By.xpath("//h1[@class='pageType']"));
+//			String visibletxt = calendar.getText();
+//			
+//			if(visibletxt.contains("Calendar for Vidya Venkatesh1Test"))
+//				logger.log(LogStatus.PASS, "The Calendar is saved for User FirstNameLastName.");
+//					else
+//				logger.log(LogStatus.FAIL, "The Calendar is not saved for User FirstNameLastName.");
+//	
+//			WebElement event = driver.findElement(By.xpath("//*[@id=\"p:f:j_id25:j_id69:28:j_id71:0:j_id72:calendarEvent:j_id84\"]/a"));
+//			if(event.getText().equals("Other"))
+//				logger.log(LogStatus.PASS, "The Event Other is saved in the Caledar.");
+//					else
+//				logger.log(LogStatus.FAIL, "The Event Other is not saved in the Caledar.");
+//			
+//			
+//			report.flush();
+//			driver.quit();
+//		
+//
+//	}
+	
+	
 	@Test
-	public void AI_TC36_Calendar() throws InterruptedException, AWTException, ParseException {
+	public void AJ_TC37_CalendarBlockEvent() throws InterruptedException, AWTException, ParseException {
 	
 		ExtentTest logger;
 		ExtentReports report;
@@ -2821,7 +2963,7 @@ public class SDFCTestCases<SelectElement> {
 		String fileName = new SimpleDateFormat("'SFDCReport_'YYYYMMddHHmm'.html'").format(new Date());
 		String path = "C:\\Users\\vasud\\Desktop\\Selenium\\" + fileName;
 		report = new ExtentReports(path);
-		logger = report.startTest("AI_TC36_Calendar");
+		logger = report.startTest("AJ_TC37_CalendarBlockEvent");
 
 		
 		driver.get("https://login.salesforce.com/");
@@ -2841,21 +2983,9 @@ public class SDFCTestCases<SelectElement> {
 		Thread.sleep(8000);
 		Robot robot = new Robot();
 		robot.keyPress(KeyEvent.VK_ESCAPE);
-		Thread.sleep(3000);
+		Thread.sleep(6000);
 		
-		WebElement currdate = driver.findElement(By.xpath("/html[1]/body[1]/div[1]/div[2]/table[1]/tbody[1]/tr[1]/td[2]/div[1]/div[1]/div[1]/div[2]/span[2]/a[1]"));
-		String appdate = currdate.getText();
 				
-		Date sysdate = new Date();
-		SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE MMMM dd,yyyy");
-		String sysdate1 = dateFormat.format((sysdate));
-		
-					
-		if(sysdate1.equals(appdate))
-			logger.log(LogStatus.PASS, "The All tab section does not have the option removed.");
-				else
-			logger.log(LogStatus.FAIL, "The All tab section still have the option removed.");
-		
 		WebElement datelink = driver.findElement(By.xpath("/html[1]/body[1]/div[1]/div[2]/table[1]/tbody[1]/tr[1]/td[2]/div[1]/div[1]/div[1]/div[2]/span[2]/a[1]"));
 		datelink.click();
 		
@@ -2869,7 +2999,7 @@ public class SDFCTestCases<SelectElement> {
 				else
 			logger.log(LogStatus.FAIL, "The Calendar for Firstname Lastname is not shown in the page.");
 		
-		WebElement linktime = driver.findElement(By.xpath("//a[contains(text(),'8:00 PM')]"));
+		WebElement linktime = driver.findElement(By.xpath("//a[contains(text(),'4:00 PM')]"));
 		linktime.click();
 		
 		String exptit = "Calendar: New Event ~ Salesforce - Developer Edition";
@@ -2912,7 +3042,7 @@ public class SDFCTestCases<SelectElement> {
 
 		WebElement expElement = driver.findElement(By.xpath("//input[@id='evt5']"));
 		
-		if(expElement.getText().equals("Other"))
+		if(expElement.getAttribute("value").equals("Other"))
 			logger.log(LogStatus.PASS, "The option Other is selected from the dialog box.");
 				else
 			logger.log(LogStatus.FAIL, "The option Other is not selected from the dialog box.");
@@ -2920,12 +3050,78 @@ public class SDFCTestCases<SelectElement> {
 			WebElement timedrop = driver.findElement(By.xpath("//input[@id='EndDateTime_time']"));
 			timedrop.click();
 			
-			WebElement timedrop1 = driver.findElement(By.xpath("//div[@id='timePickerItem_43']"));
+			WebElement timedrop1 = driver.findElement(By.xpath("//div[@id='timePickerItem_38']"));
 			timedrop1.click();
 			
 			
+			WebElement recurences = driver.findElement(By.xpath("//input[@id='IsRecurrence']"));
+			recurences.click();
+			
+			WebElement freqlab = driver.findElement(By.xpath("//label[contains(text(),'Frequency')]"));
+			WebElement recstrtdt = driver.findElement(By.xpath("//label[contains(text(),'Recurrence Start')]"));
+			WebElement recenddt = driver.findElement(By.xpath("//label[contains(text(),'Recurrence End')]"));
+			
+			if(freqlab.isDisplayed() && recstrtdt.isDisplayed() && recenddt.isDisplayed())
+				logger.log(LogStatus.PASS, "The section Frequency,Start date and End date is displayed once the recurence checkbox is checked");
+					else
+				logger.log(LogStatus.FAIL, "The section Frequency,Start date and End date is not displayed once the recurence checkbox is checked");
+	
+			WebElement weeklyradio = driver.findElement(By.xpath("//input[@id='rectypeftw']"));
+			weeklyradio.click();
+			
+			WebElement freqdef = driver.findElement(By.xpath("//input[@id='wi']"));
+			
+			if(freqdef.getAttribute("value").equals("1"))
+				logger.log(LogStatus.PASS, "The Default value inside the textbox is 1.");
+					else
+				logger.log(LogStatus.FAIL, "The Default value inside the textbox is not shown.");
+			
+			Date sysdate = new Date();
+			SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE MMMM dd, yyyy");
+			String sysdate1 = dateFormat.format((sysdate));
+			int index = sysdate1.indexOf(" ", 0);
+			String sysday = sysdate1.substring(0,index);
+						
+			
+			List<WebElement> checkboxes = driver.findElements(By.xpath("//div[@id='w']//div[2]"));
+			String daycheckd = "";
+			
+			for(int rows=0;rows<checkboxes.size();rows++)
+			{
+			List<WebElement> boxitems = checkboxes.get(rows).findElements(By.tagName("input"));	
+			List<WebElement> days	= checkboxes.get(rows).findElements(By.tagName("label"));
+			
+			for(int i=0;i<boxitems.size();i++)
+			{
+				
+				if(boxitems.get(i).isSelected())
+					daycheckd = days.get(i).getText();
+			}
+			
+			}
+				
+						
+			
+			
+			if(daycheckd.equals(sysday))
+				logger.log(LogStatus.PASS, "The Day when the checkbox is checked is same as the current system day.");
+					else
+				logger.log(LogStatus.FAIL, "The Day when the checkbox is checked is not same as the current system day.");
+			
+			
+			
+			WebElement recenddate = driver.findElement(By.xpath("//input[@id='RecurrenceEndDateOnly']"));
+			recenddate.click();
+			
+			WebElement rightarow = driver.findElement(By.xpath("//img[contains(@class,'calRight')]"));
+			rightarow.click();
+			
+			WebElement datesel = driver.findElement(By.xpath("//td[contains(text(),'20')]"));
+			datesel.click();
+			
 			WebElement savebtn = driver.findElement(By.xpath("//div[@id='ep']//div[contains(@class,'pbHeader')]//input[1]"));
 			savebtn.click();
+			Thread.sleep(8000);
 			
 			WebElement calendar = driver.findElement(By.xpath("//h1[@class='pageType']"));
 			String visibletxt = calendar.getText();
@@ -2935,18 +3131,38 @@ public class SDFCTestCases<SelectElement> {
 					else
 				logger.log(LogStatus.FAIL, "The Calendar is not saved for User FirstNameLastName.");
 	
-			WebElement event = driver.findElement(By.xpath("//*[@id=\"p:f:j_id25:j_id69:28:j_id71:0:j_id72:calendarEvent:j_id84\"]/a"));
+			WebElement event = driver.findElement(By.xpath("/html[1]/body[1]/div[1]/div[2]/table[1]/tbody[1]/tr[1]/td[2]/div[1]/table[1]/tbody[1]/tr[1]/td[1]/form[1]/div[1]/div[1]/div[1]/table[1]/tbody[1]/tr[2]/td[2]/div[21]/span[1]/div[1]/div[1]/div[1]/span[1]/a[1]/span[1]"));
 			if(event.getText().equals("Other"))
 				logger.log(LogStatus.PASS, "The Event Other is saved in the Caledar.");
 					else
 				logger.log(LogStatus.FAIL, "The Event Other is not saved in the Caledar.");
 			
+			WebElement monthview = driver.findElement(By.xpath("//img[@class='monthViewIcon']"));
+			monthview.click();
+			
+			WebElement calendar1 = driver.findElement(By.xpath("//h1[@class='pageType']"));
+			String visibletxt1 = calendar1.getText();
+			
+			if(visibletxt1.contains("Calendar for Vidya Venkatesh1Test - Month View"))
+				logger.log(LogStatus.PASS, "The Calendar for month view is shown.");
+					else
+				logger.log(LogStatus.FAIL, "The Calendar for month view is not shown.");
+	
+			WebElement currweekother = driver.findElement(By.xpath("//td[contains(@class,'calToday')]//div[2]//a[1]"));
+			WebElement nextweekother = driver.findElement(By.xpath("//td[contains(@class,'calActive')]//a[contains(text(),'Other')]"));
+			String link1 = currweekother.getText();
+			String link2 = nextweekother.getText();
+			
+			if(link1.equals("Other") && link2.equals("Other"))
+				logger.log(LogStatus.PASS, "The Calendar is blocked for this week and next week with event Other.");
+					else
+				logger.log(LogStatus.FAIL, "The Calendar is not blocked for this week and next week with event Other.");
+
 			
 			report.flush();
 			driver.quit();
 		
 
 	}
-	
 	
 }
