@@ -32,7 +32,7 @@ public class SFDC_CreateAccount extends Reusable {
 	@Test
 	public void I_TC10CreateAccount() throws InterruptedException, AWTException {
 	
-		InitializeFireFoxDriver();
+		InitializeChromeDriver();
 		CreateReport();
 		
 		logger = report.startTest("I_TC10CreateAccount");
