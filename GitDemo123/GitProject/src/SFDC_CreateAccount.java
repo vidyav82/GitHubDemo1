@@ -39,7 +39,7 @@ public class SFDC_CreateAccount extends Reusable {
 		
 		Loginsalesforce();
 		
-		WebElement showAll = driver.findElement(By.xpath("//img[@class='allTabsArrow']"));
+		WebElement showAll = driver.findElement(By.xpath("//*[@id=\"AllTab_Tab\"]"));
 		Click(showAll, "Show All");
 		Thread.sleep(6000);
 		
