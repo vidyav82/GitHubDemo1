@@ -39,7 +39,7 @@ public class SFDC_CreateAccount extends Reusable {
 		
 		Loginsalesforce();
 		
-		WebElement showAll = driver.findElement(By.xpath("//*[@id=\"AllTab_Tab\"]"));
+		WebElement showAll = driver.findElement(By.id("AllTab_Tab"));
 		Click(showAll, "Show All");
 		Thread.sleep(6000);
 		
@@ -62,7 +62,7 @@ public class SFDC_CreateAccount extends Reusable {
 		VerifyTitleMatches(pagetitle,actualTitle,"new Account page");
 		
 		WebElement newActname = driver.findElement(By.xpath("//input[@id='acc2']"));
-		EnterText(newActname, "New12 Tester12", "New Account name");
+		EnterText(newActname, "New123 Tester12", "New Account name");
 		
 		
 		WebElement type = driver.findElement(By.xpath("//select[@id='acc6']"));
@@ -78,7 +78,7 @@ public class SFDC_CreateAccount extends Reusable {
 		
 		
 		WebElement savdname = driver.findElement(By.xpath("//h2[@class='topName']"));
-		Verify_VisibleText(savdname,"New12 Tester12", "new Account functionality and saved the details");
+		Verify_VisibleText(savdname,"New123 Tester12", "new Account functionality and saved the details");
 		
 		CloseReport();
 		CloseBrowser();
