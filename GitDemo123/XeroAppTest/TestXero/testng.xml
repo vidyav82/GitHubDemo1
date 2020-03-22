@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Testing of Xero App">
+  <test thread-count="1" name="TestXERO">
+  <parameter name="browser" value="firefox"></parameter>
+  <parameter name="username" value="vidyav82@gmail.com"></parameter>
+  <parameter name="password" value="test1234"></parameter>
+  <parameter name="username1" value="vidyav@gmail.com"></parameter>
+  <parameter name="password1" value="test12346"></parameter>
+   <classes>
+            <class name="TestXero.TestXero">
+             <methods>
+       			 <exclude name="Test_ID01_Navigate_to_XERO" />
+        		<exclude name="Test_ID01_Incorrect_Password" />
+       			 <exclude name="Test_ID01_ForgotPwd" />
+       			 <include name="Test_ID02_SignUptoXDC" />
+       			 <include name="Test_ID02_FreeTrialTerms" />
+       			 <include name="Test_ID02_FreeTrialError" />
+      </methods>
+            </class>
+        </classes>
+  </test> 
+ 
+</suite> <!-- Suite -->
