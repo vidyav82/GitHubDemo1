@@ -165,7 +165,7 @@ public class ReusableXero {
 		if(ActualTitle.equals(ExpTitle))
 			logger.log(LogStatus.PASS,PageName+" : The title is loading correctly.");
 				else
-			logger.log(LogStatus.FAIL,PageName+" : The title is loading correctly.");	
+			logger.log(LogStatus.FAIL,PageName+" : The title is not loading correctly.");	
 	}
 	
 	public static void Loginsalesforce() throws InterruptedException

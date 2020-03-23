@@ -13,9 +13,10 @@
        			 <exclude name="Test_ID01_Navigate_to_XERO" />
         		<exclude name="Test_ID01_Incorrect_Password" />
        			 <exclude name="Test_ID01_ForgotPwd" />
-       			 <include name="Test_ID02_SignUptoXDC" />
-       			 <include name="Test_ID02_FreeTrialTerms" />
-       			 <include name="Test_ID02_FreeTrialError" />
+       			 <exclude name="Test_ID02_SignUptoXDC" />
+       			 <exclude name="Test_ID02_FreeTrialTerms" />
+       			 <exclude name="Test_ID02_FreeTrialError" />
+       			 <include name="Test_ID03_TestAllTabs" />
       </methods>
             </class>
         </classes>

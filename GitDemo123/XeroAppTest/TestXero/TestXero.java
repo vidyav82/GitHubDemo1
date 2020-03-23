@@ -1,5 +1,6 @@
 package TestXero;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
@@ -306,6 +307,159 @@ public class TestXero extends ReusableXero{
 		String Exptitle4 = "Sign up for the Xero Partner Program | Xero US";
 		String ActTitle4 = driver.getTitle();
 		VerifyTitleMatches(ActTitle4,Exptitle4,"Accountant or Bookkeeper Page");
+		
+	}
+	
+	@Test
+	@Parameters({"username","password"})
+	public void Test_ID03_TestAllTabs(String uname,String pwd) throws Exception {
+		
+		CreateReport();
+		logger = report.startTest("Test_ID03_TestAllTabs");
+		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		
+		
+		OpenUrl("https://www.xero.com/us/");
+//		WebDriverWait wait = new WebDriverWait(driver,10000);
+//		wait.until(ExpectedConditions.titleContains(driver.getTitle()));
+		
+		logger.log(LogStatus.INFO, "URL opened successfully.");
+		
+		WebElement LoginBtn = driver.findElement(By.linkText("Login"));
+		Click(LoginBtn,"Login Button Start");
+		
+		WebElement userid = driver.findElement(By.xpath("//input[@id='email']"));
+		EnterText(userid,uname, "Username");
+		
+		WebElement pswrd = driver.findElement(By.xpath("//input[@id='password']"));
+		EnterText(pswrd,pwd, "Password");
+		
+		WebElement login = driver.findElement(By.xpath("//button[@id='submitButton']"));
+		Click(login,"Login");
+		WebDriverWait wait = new WebDriverWait(driver,500);
+		wait.until(ExpectedConditions.titleContains(driver.getTitle()));
+		driver.manage().timeouts().implicitlyWait(50, TimeUnit.SECONDS);
+		
+		String Exptitle = "Xero | Dashboard | tekarch";
+		String ActTitle = driver.getTitle().trim();
+		VerifyTitleMatches(ActTitle,Exptitle,"Xero Home Page");
+				
+		logger.log(LogStatus.INFO, "Home Page Screen Shot." + logger.addScreenCapture(takeScreenShot("Test_ID03_TestAllTabs")));
+		
+		WebElement bannermsg = driver.findElement(By.xpath("//span[@class='xrh-banner--text']"));
+		String ExpdMsg = "You’re using a trial account.";
+		Verify_VisibleText(bannermsg,ExpdMsg, "Banner Message");
+		
+		WebElement Dashboard = driver.findElement(By.xpath("//a[@name='navigation-menu/dashboard']"));
+		Click(Dashboard,"Dashboard Tab");
+		wait.until(ExpectedConditions.titleContains(driver.getTitle()));
+		driver.manage().timeouts().pageLoadTimeout(50, TimeUnit.SECONDS);
+		String Exptitle1 = "Xero | Dashboard | tekarch";
+		String ActTitle1 = driver.getTitle().trim();
+		VerifyTitleMatches(ActTitle1,Exptitle1,"Xero Dashboard Page");
+		
+		
+		WebElement Accounting = driver.findElement(By.xpath("//button[@name='navigation-menu/accounting']"));
+		Click(Accounting,"Accounting Tab");
+		
+		WebElement AccountingList = driver.findElement(By.xpath("//div[@class='xrh-dropdown-layout xrh-nav--dropdown xrh-dropdown-is-open xrh-dropdown-is-opening xrh-dropdown-positionleft']//div[@class='xrh-dropdown--body']"));
+		List<WebElement> Heading = AccountingList.findElements(By.xpath("//div//ol[@class=\"xrh-verticalmenu\"][@role=\"navigation\"][@aria-label]"));
+		
+		for(int i=0;i<Heading.size();i++) {
+			
+			logger.log(LogStatus.INFO, "The Heading Items In Accountind Tab");
+			logger.log(LogStatus.INFO, Heading.get(i).getAttribute("aria-label"));
+			
+		}
+		
+		List<WebElement> items = Heading.get(0).findElements(By.xpath("//div//ol//li//a[@class=\"xrh-verticalmenuitem--body\"]"));
+			for(int j=0;j<items.size();j++)
+			{
+				logger.log(LogStatus.INFO, "The Items In Accountind Tab");
+				logger.log(LogStatus.INFO, items.get(j).getText());
+				
+			}
+			
+		
+		WebElement Reports = driver.findElement(By.xpath("//div//div//ol//li//a[@class=\"xrh-verticalmenuitem--body\"][contains(text(),'Reports')]"));
+		Click(Reports,"Reports");
+		
+		driver.manage().timeouts().pageLoadTimeout(60, TimeUnit.SECONDS);
+		wait.until(ExpectedConditions.titleContains(driver.getTitle()));
+		String Exptitle2 = "Xero | Reports | tekarch";
+		String ActTitle2 = driver.getTitle().trim();
+		VerifyTitleMatches(ActTitle2,Exptitle2,"Xero Reports Page");
+		
+		WebElement Contacts = driver.findElement(By.xpath("//button[@name='navigation-menu/contacts']"));
+		Click(Contacts,"Contacts Tab");
+		
+		WebElement AllContacts = driver.findElement(By.xpath("//div//div//ol//li//a[@class=\"xrh-verticalmenuitem--body\"][contains(text(),'All contacts')]"));
+		Click(AllContacts,"AllContacts Tab");
+		driver.manage().timeouts().pageLoadTimeout(50, TimeUnit.SECONDS);
+		wait.until(ExpectedConditions.titleContains(driver.getTitle()));
+		String Exptitle3 = "Xero | Contacts | tekarch";
+		String ActTitle3 = driver.getTitle();
+		VerifyTitleMatches(ActTitle3,Exptitle3,"Xero All Contacts Page");
+		
+		WebElement tekArch = driver.findElement(By.xpath("//span[@class='xrh-appbutton--text']"));
+		Click(tekArch,"TekArch Link");
+		
+		WebElement Settings = driver.findElement(By.xpath("//div//div//ol//li//a[@class=\"xrh-verticalmenuitem--body\"][contains(text(),'Settings')]"));
+		Click(Settings,"Settings Link");
+		driver.manage().timeouts().pageLoadTimeout(50, TimeUnit.SECONDS);
+		wait.until(ExpectedConditions.titleContains(driver.getTitle()));
+		String Exptitle4 = "Xero | Organization settings | tekarch";
+		String ActTitle4 = driver.getTitle();
+		VerifyTitleMatches(ActTitle4,Exptitle4,"Xero Settings Page");
+		
+		WebElement tekArch1 = driver.findElement(By.xpath("//span[@class='xrh-appbutton--text']"));
+		Click(tekArch1,"TekArch Link");
+		
+		WebElement Files = driver.findElement(By.xpath("//div//div//ol//li//a[@class=\"xrh-verticalmenuitem--body\"][contains(text(),'Files')]"));
+		Click(Files,"Files Link");
+		driver.manage().timeouts().pageLoadTimeout(50, TimeUnit.SECONDS);
+		wait.until(ExpectedConditions.titleContains(driver.getTitle()));
+		String Exptitle5 = "Xero | Files | tekarch";
+		String ActTitle5 = driver.getTitle();
+		VerifyTitleMatches(ActTitle5,Exptitle5,"Xero Files Page");
+	
+		WebElement NewBtn = driver.findElement(By.xpath("//li[1]//button[1]//div[1]"));
+		Click(NewBtn,"+ Button");
+		driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
+		
+		WebElement listitem = driver.findElement(By.xpath("//div//div[@class=\"xrh-dropdown--body\"][@data-automationid=\"xrh-addon-quicklaunch-body\"]"));
+		List<WebElement> liitem = listitem.findElements(By.className("xrh-verticalmenu"));
+		for(int i=0;i<liitem.size();i++) {
+			logger.log(LogStatus.INFO, "The Items In New Tab");
+			logger.log(LogStatus.INFO, liitem.get(i).getText());
+			
+		}
+		
+		WebElement Dashboard1 = driver.findElement(By.xpath("//a[@name='navigation-menu/dashboard']"));
+		Click(Dashboard1,"Dashboard Tab");
+		driver.manage().timeouts().pageLoadTimeout(50, TimeUnit.SECONDS);
+		
+		WebElement SrchBtn = driver.findElement(By.xpath("//body[@class='xui-body x-sandbox']/div[@id='header']/header[@class='xrh-header xrh-header-business xrh-header-wide']/div[@class='xrh-header--main']/ol[@class='xrh-addons xrh-header-background-color']/li[2]/button[1]/div[1]/*[1]"));
+		Click(SrchBtn,"Search Button");
+		
+		WebElement SearchSec = driver.findElement(By.xpath("//input[@id='queryInput']"));
+		VerifyLinkIsDisplayed(SearchSec, "Search Section");
+		
+		WebElement HelpBtn = driver.findElement(By.xpath("//li[4]//button[1]//div[1]"));
+		Click(HelpBtn,"Help Button");
+		
+		WebElement helparea = driver.findElement(By.xpath("//input[@id='menu_help']"));
+		VerifyLinkIsDisplayed(helparea, "Help Section");
+		
+		WebElement helplist = driver.findElement(By.xpath("//div[@class='xn-h-task-list xn-h-task-list-narrow']"));
+		List<WebElement> listitems = helplist.findElements(By.tagName("ul"));
+		
+		for(int i=0;i<listitems.size();i++)
+		{
+			
+			logger.log(LogStatus.INFO, "The HelpItems in List");
+			logger.log(LogStatus.INFO, listitems.get(i).getText());
+		}
 		
 	}
 	
