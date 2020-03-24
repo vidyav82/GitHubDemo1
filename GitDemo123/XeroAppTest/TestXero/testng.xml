@@ -10,10 +10,10 @@
    <classes>
             <class name="TestXero.TestXero">
              <methods>
-       			 <exclude name="Test_ID01_Navigate_to_XERO" />
+       			 <include name="Test_ID01_Navigate_to_XERO" />
         		<exclude name="Test_ID01_Incorrect_Password" />
        			 <exclude name="Test_ID01_ForgotPwd" />
-       			 <include name="Test_ID02_SignUptoXDC" />
+       			 <exclude name="Test_ID02_SignUptoXDC" />
        			 <exclude name="Test_ID02_FreeTrialTerms" />
        			 <exclude name="Test_ID02_FreeTrialError" />
        			 <exclude name="Test_ID03_TestAllTabs" />
