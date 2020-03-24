@@ -42,6 +42,7 @@ public class ReusableXero {
 	}
 	
 	public static void InitializeIEEdgeDriver() {
+		System.setProperty("webdriver.edge.driver","C:\\WINDOWS\\System32\\MicrosoftWebDriver.exe");
 		WebDriverManager.edgedriver().setup();
 		driver = new EdgeDriver();
 	}
