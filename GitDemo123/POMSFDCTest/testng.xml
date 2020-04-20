@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="SFDCTestingPOMFramework">
+  <test thread-count="1" name="TestSFDCPOMFirefox">
+  <parameter name="browser" value="firefox"></parameter>
+    <classes>
+      <class name="TestSFDC.SFDC_Login">
+       <methods>
+      
+       			 <exclude name="A_LoginErrorMessage" />
+        		 <exclude name="B_LogintoSFDC" />
+       			 <exclude name="C_CheckRemeberMe" />
+       			 <exclude name="D_ForgotPassword_4A" />
+       			 <exclude name="D_ForgotPassword_4B" />
+       			 <include name="I_TC10CreateAccount" />
+       	</methods>
+       	</class>
+    </classes>
+  </test> 
+  <test thread-count="1" name="TestSFDCPOMchrome">
+  <parameter name="browser" value="chrome"></parameter>
+  <classes>
+      <class name="TestSFDC.SFDC_Login">
+         <methods> 
+        	 <exclude name="E_Tc06" />
+        	 <include name="F_Tc07" />
+        	 <include name="G_Tc08" />	 
+        	 <include name="H_Tc09" />	 	 
+       	</methods>
+       	</class>
+    </classes>
+  </test> <!-- Test -->
+</suite> <!-- Suite -->

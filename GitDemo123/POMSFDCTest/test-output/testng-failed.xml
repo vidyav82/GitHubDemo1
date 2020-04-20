@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite guice-stage="DEVELOPMENT" name="Failed suite [SFDCTestingPOMFramework]">
+  <test thread-count="5" name="TestSFDCPOM(failed)">
+    <classes>
+      <class name="TestSFDC.SFDC_Login">
+        <parameter name="browser" value="chrome"/>
+        <methods>
+          <include name="E_Tc06"/>
+          <include name="Initialize"/>
+          <include name="Close"/>
+        </methods>
+      </class> <!-- TestSFDC.SFDC_Login -->
+    </classes>
+  </test> <!-- TestSFDCPOM(failed) -->
+</suite> <!-- Failed suite [SFDCTestingPOMFramework] -->
